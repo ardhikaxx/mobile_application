@@ -20,7 +20,7 @@ class AuthController {
   static Future<void> login(
       BuildContext context, String email, String password) async {
     try {
-      const String apiUrl = "http://10.10.181.218:8000/api/auth/login";
+      const String apiUrl = "http://192.168.43.59:8000/api/auth/login";
       final response = await http.post(Uri.parse(apiUrl),
           body: {'email_orang_tua': email, 'password_orang_tua': password});
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -38,7 +38,7 @@ class AuthController {
   static Future<void> tokenRequest(BuildContext context, String token) async {
     try {
       final responseData = await http.get(
-        Uri.parse("http://10.10.181.218:8000/api/auth/me"),
+        Uri.parse("http://192.168.43.59:8000/api/auth/me"),
         headers: {'Authorization': 'Bearer $token'},
       );
       if (responseData.statusCode == 200) {
@@ -55,7 +55,7 @@ class AuthController {
 
   static Future<void> logout(BuildContext context, String token) async {
     try {
-      const String apiUrl = "http://10.10.181.218:8000/api/auth/logout";
+      const String apiUrl = "http://192.168.43.59:8000/api/auth/logout";
       final response = await http.post(Uri.parse(apiUrl), headers: {
         'Authorization': 'Bearer $_token',
       });
@@ -89,7 +89,7 @@ class AuthController {
     required String password,
   }) async {
     try {
-      const String apiUrl = "http://10.10.181.218:8000/api/auth/register";
+      const String apiUrl = "http://192.168.43.59:8000/api/auth/register";
       final response = await http.post(Uri.parse(apiUrl), body: {
         'no_kk': noKk,
         'nik_ibu': nikIbu,
@@ -146,7 +146,7 @@ class AuthController {
 
   static Future<bool> checkEmail(BuildContext context, String email) async {
     try {
-      const String apiUrl = "http://10.10.181.218:8000/api/auth/check-email";
+      const String apiUrl = "http://192.168.43.59:8000/api/auth/check-email";
       final response = await http.post(
         Uri.parse(apiUrl),
         body: {'email_orang_tua': email},
@@ -166,7 +166,7 @@ class AuthController {
       BuildContext context, String email, String newPassword) async {
     try {
       const String apiUrl =
-          "http://10.10.181.218:8000/api/auth/change-password";
+          "http://192.168.43.59:8000/api/auth/change-password";
       final response = await http.post(
         Uri.parse(apiUrl),
         body: {

@@ -65,7 +65,7 @@ class _NavigationButtomState extends State<NavigationButtom> {
         child: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             _buildNavBarItem(Icons.home, "Home", 0),
-            _buildNavBarItem(Icons.article, "Artikel", 1),
+            _buildNavBarItem(Icons.article, "Edukasi", 1),
             _buildNavBarItem(Icons.insert_chart, "Grafik", 2),
             _buildNavBarItem(Icons.medical_services, "Imunisasi", 3),
             _buildNavBarItem(Icons.person_2_rounded, "Profile", 4),

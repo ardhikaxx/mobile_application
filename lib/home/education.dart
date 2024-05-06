@@ -39,7 +39,7 @@ class _EducationState extends State<Education> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Artikel',
+          'Edukasi',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Color(0xFF0F6ECD),
