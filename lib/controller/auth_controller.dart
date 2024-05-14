@@ -6,6 +6,14 @@ import 'package:posyandu_app/components/navbottom.dart';
 import 'package:posyandu_app/auth/login.dart';
 import 'package:posyandu_app/model/user.dart';
 
+class ApiConfig {
+  static String apiUrl = "http://192.168.0.117:8000";
+
+  static void setApiUrl(String newUrl) {
+    apiUrl = newUrl;
+  }
+}
+
 class AuthController {
   static late String _token;
 
@@ -17,18 +25,16 @@ class AuthController {
     return _token;
   }
 
-  static Future<void> login(
-      BuildContext context, String email, String password) async {
+  static Future<void> login(BuildContext context, String email, String password) async {
     try {
-      const String apiUrl = "http://192.168.43.59:8000/api/auth/login";
+      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/login";
       final response = await http.post(Uri.parse(apiUrl),
           body: {'email_orang_tua': email, 'password_orang_tua': password});
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
         final token = jsonData['data']['token'] as String;
         setToken(token);
-        // ignore: use_build_context_synchronously
-        await tokenRequest(context, token);  
+        await tokenRequest(context, token);
       }
     } catch (e) {
       print('Error: $e');
@@ -38,14 +44,12 @@ class AuthController {
   static Future<void> tokenRequest(BuildContext context, String token) async {
     try {
       final responseData = await http.get(
-        Uri.parse("http://192.168.43.59:8000/api/auth/me"),
+        Uri.parse("${ApiConfig.apiUrl}/api/auth/me"),
         headers: {'Authorization': 'Bearer $token'},
       );
       if (responseData.statusCode == 200) {
         final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
-        final userData =
-            UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
-        // ignore: use_build_context_synchronously
+        final userData = UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
         _showMessageDialog(context, userData.namaIbu, userData);
       }
     } catch (e) {
@@ -55,13 +59,12 @@ class AuthController {
 
   static Future<void> logout(BuildContext context, String token) async {
     try {
-      const String apiUrl = "http://192.168.43.59:8000/api/auth/logout";
+      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/logout";
       final response = await http.post(Uri.parse(apiUrl), headers: {
         'Authorization': 'Bearer $_token',
       });
       if (response.statusCode == 200) {
         Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => LoginPage()),
         );
@@ -89,7 +92,7 @@ class AuthController {
     required String password,
   }) async {
     try {
-      const String apiUrl = "http://192.168.43.59:8000/api/auth/register";
+      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/register";
       final response = await http.post(Uri.parse(apiUrl), body: {
         'no_kk': noKk,
         'nik_ibu': nikIbu,
@@ -105,21 +108,17 @@ class AuthController {
         'password_orang_tua': password,
       });
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // ignore: use_build_context_synchronously
         _showSuccessDialog(context);
         await Future.delayed(const Duration(seconds: 2));
         Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => LoginPage()),
         );
       } else {
-        // ignore: use_build_context_synchronously
         _showErrorDialog(context);
       }
     } catch (e) {
       print('Error: $e');
-      // ignore: use_build_context_synchronously
       _showErrorDialog(context);
     }
   }
@@ -146,7 +145,7 @@ class AuthController {
 
   static Future<bool> checkEmail(BuildContext context, String email) async {
     try {
-      const String apiUrl = "http://192.168.43.59:8000/api/auth/check-email";
+      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/check-email";
       final response = await http.post(
         Uri.parse(apiUrl),
         body: {'email_orang_tua': email},
@@ -165,8 +164,7 @@ class AuthController {
   static Future<void> changePassword(
       BuildContext context, String email, String newPassword) async {
     try {
-      const String apiUrl =
-          "http://192.168.43.59:8000/api/auth/change-password";
+      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/change-password";
       final response = await http.post(
         Uri.parse(apiUrl),
         body: {
@@ -179,7 +177,6 @@ class AuthController {
         final responseData = jsonDecode(response.body);
         final message = responseData['message'] as String;
         AwesomeDialog(
-          // ignore: use_build_context_synchronously
           context: context,
           dialogType: DialogType.success,
           animType: AnimType.bottomSlide,
@@ -187,16 +184,14 @@ class AuthController {
           desc: message,
         ).show().then((_) {
           Future.delayed(const Duration(seconds: 2), () {
-            // Tampilkan dialog konfirmasi
             AwesomeDialog(
               context: context,
               dialogType: DialogType.info,
               animType: AnimType.bottomSlide,
               title: 'Confirmation',
-              desc: 'Are you sure you want to proceed to login page?',
+              desc: 'Are you sure you want to proceed to the login page?',
               btnOkText: 'OK',
               btnOkOnPress: () {
-                // Arahkan pengguna ke halaman login
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),
@@ -210,7 +205,6 @@ class AuthController {
         final message = responseData['message'] as String;
 
         AwesomeDialog(
-          // ignore: use_build_context_synchronously
           context: context,
           dialogType: DialogType.error,
           animType: AnimType.bottomSlide,
@@ -221,7 +215,6 @@ class AuthController {
     } catch (e) {
       print('Error: $e');
       AwesomeDialog(
-        // ignore: use_build_context_synchronously
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.bottomSlide,
