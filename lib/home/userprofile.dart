@@ -7,7 +7,7 @@ import 'package:posyandu_app/model/user.dart';
 
 class Profile extends StatefulWidget {
   final UserData userData;
-  const Profile({super.key, required this.userData});
+  const Profile({Key? key, required this.userData}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -130,7 +130,7 @@ class _ProfileState extends State<Profile> {
         height: 55,
         child: ElevatedButton(
           onPressed: () {
-            Get.to(() => const EditProfile());
+            Get.to(() => EditProfile(userData: userData,));
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFF3F8FE),
