@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class ArtikelController {
+  static String apiUrl = 'http://192.168.1.171:8000';
   static List<dynamic> artikelData = [];
 
   Future<void> fetchArtikelData(BuildContext context) async {
     try {
       final responseData = await http.get(
-        Uri.parse("http://192.168.0.117:8000/api/artikels"),
+        Uri.parse("${ArtikelController.apiUrl}/api/artikels"),
       );
       if (responseData.statusCode == 200) {
         final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
@@ -51,11 +52,13 @@ class Artikel {
   });
 
   factory Artikel.fromJson(Map<String, dynamic> json) {
-  return Artikel(
-    judul: json['judul'] ?? '',
-    gambar: json['gambar'] ?? '',
-    tanggalUpload: json['tanggal_upload'] != null ? DateTime.parse(json['tanggal_upload']) : DateTime.now(),
-    deskripsi: json['deskripsi'] ?? '',
-  );
-}
+    return Artikel(
+      judul: json['judul'] ?? '',
+      gambar: json['gambar'] ?? '',
+      tanggalUpload: json['tanggal_upload'] != null
+          ? DateTime.parse(json['tanggal_upload'])
+          : DateTime.now(),
+      deskripsi: json['deskripsi'] ?? '',
+    );
+  }
 }
