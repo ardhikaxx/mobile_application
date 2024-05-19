@@ -7,8 +7,8 @@ import 'package:posyandu_app/auth/login.dart';
 import 'package:posyandu_app/model/user.dart';
 
 class ApiConfig {
-  static String apiUrl = "http://192.168.1.171:8000";
-
+  static String apiUrl = "http://192.168.1.71:8000";
+  
   static void setApiUrl(String newUrl) {
     apiUrl = newUrl;
   }
@@ -39,6 +39,71 @@ class AuthController {
     } catch (e) {
       print('Error: $e');
     }
+  }
+
+  static Future<void> dataProfile(BuildContext context, String token) async {
+    try {
+      final responseData = await http.get(
+        Uri.parse("${ApiConfig.apiUrl}/api/auth/dataProfile"),
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      if (responseData.statusCode == 200) {
+        final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
+        final userData = UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
+        _showMessageDialog(context, userData.namaIbu, userData);
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  static Future<void> updateProfile(
+    BuildContext context,
+    TextEditingController namaIbuController,
+    TextEditingController namaAyahController,
+    TextEditingController alamatController,
+    TextEditingController teleponController,
+  ) async {
+    final String apiUrl = "${ApiConfig.apiUrl}/api/auth/updateProfile";
+    final response = await http.put(
+      Uri.parse(apiUrl),
+      headers: {
+        'Authorization' : 'Bearer ${AuthController.getToken()}',
+        'Content-Type' : 'application/json',
+      },
+      body: jsonEncode({
+        'nama_ibu': namaIbuController.text,
+        'nama_ayah': namaAyahController.text,
+        'alamat': alamatController.text,
+        'telepon': teleponController.text,
+      }),
+    );
+    if (response.statusCode == 200) {
+      _showSuccessUpdate(context);
+        await Future.delayed(const Duration(seconds: 2));
+      } else {
+        _showErrorUpdate(context);
+      }
+  }
+
+  static void _showSuccessUpdate(BuildContext context) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.success,
+      animType: AnimType.bottomSlide,
+      title: 'Berhasil',
+      desc: 'Profile Berhasil di Edit!',
+    ).show();
+  }
+
+  static void _showErrorUpdate(BuildContext context) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.bottomSlide,
+      title: 'Gagal',
+      desc: 'Profile Gagal di Edit',
+    ).show();
   }
 
   static Future<void> tokenRequest(BuildContext context, String token) async {
@@ -242,3 +307,4 @@ void _showMessageDialog(BuildContext context, String data, UserData userData) {
     );
   });
 }
+
