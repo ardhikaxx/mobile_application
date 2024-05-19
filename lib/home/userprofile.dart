@@ -26,6 +26,12 @@ class _ProfileState extends State<Profile> {
     userData = widget.userData;
   }
 
+  void _updateProfile(UserData updatedUserData) {
+    setState(() {
+      userData = updatedUserData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +97,7 @@ class _ProfileState extends State<Profile> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      widget.userData.namaIbu,
+                      userData.namaIbu,
                       style: const TextStyle(
                         fontSize: 30,
                         color: Colors.white,
@@ -100,7 +106,7 @@ class _ProfileState extends State<Profile> {
                     ),
                     const SizedBox(height: 1),
                     Text(
-                      widget.userData.nikIbu.toString(),
+                      userData.nikIbu.toString(),
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -130,7 +136,15 @@ class _ProfileState extends State<Profile> {
         height: 55,
         child: ElevatedButton(
           onPressed: () {
-            Get.to(() => EditProfile(userData: userData,));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>EditProfile(
+                  userData: userData,
+                  onUpdate: _updateProfile
+                ),
+                ),
+                );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFF3F8FE),

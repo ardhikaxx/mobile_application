@@ -7,7 +7,9 @@ import 'package:posyandu_app/controller/auth_controller.dart';
 
 class EditProfile extends StatefulWidget {
   final UserData userData;
-  const EditProfile({super.key, required this.userData});
+  final Function(UserData updatedUserData) onUpdate;
+  
+  const EditProfile({Key? key, required this.userData, required this.onUpdate}) : super(key: key);
 
 
   @override
@@ -32,6 +34,24 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController alamatController;
   late TextEditingController teleponController;
   late TextEditingController emailController;
+
+  UserData _getUpdatedUserData() {
+    return UserData(
+      noKk: widget.userData.noKk,
+      nikIbu: widget.userData.nikIbu,
+      namaIbu: namaIbuController.text,
+      tempatLahirIbu: widget.userData.tempatLahirIbu,
+      tanggalLahirIbu: widget.userData.tanggalLahirIbu,
+      golDarahIbu: widget.userData.golDarahIbu,
+      nikAyah: widget.userData.nikAyah,
+      namaAyah: namaAyahController.text,
+      alamat: alamatController.text,
+      telepon: teleponController.text,
+      emailOrangTua: widget.userData.emailOrangTua,
+      updatedAt: widget.userData.updatedAt,
+      createdAt: widget.userData.createdAt
+    );
+  }
 
 @override
   void initState() {
@@ -604,15 +624,25 @@ class _EditProfileState extends State<EditProfile> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      onPressed: () {
-                        AuthController.updateProfile(
-                          context,
-                          namaIbuController,
-                          namaAyahController,
-                          alamatController,
-                          teleponController,
-                        );
-                      },
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          bool success = await AuthController.updateProfile(
+                            context,
+                            namaIbuController,
+                            namaAyahController,
+                            alamatController,
+                            teleponController,
+                            );
+                            if (success) {
+                              AuthController.showSuccessUpdate(context);
+                              UserData updatedUserData = _getUpdatedUserData();
+                              widget.onUpdate(updatedUserData);
+                              Navigator.pop(context);
+                            } else {
+                              AuthController.showErrorUpdate(context);
+                            }
+                          }
+                        },
                       child: const Text(
                         "SIMPAN",
                         style: TextStyle(
