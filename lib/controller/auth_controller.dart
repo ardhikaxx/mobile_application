@@ -57,36 +57,43 @@ class AuthController {
     }
   }
 
-  static Future<void> updateProfile(
+  static Future<bool> updateProfile(
     BuildContext context,
     TextEditingController namaIbuController,
     TextEditingController namaAyahController,
     TextEditingController alamatController,
     TextEditingController teleponController,
   ) async {
-    final String apiUrl = "${ApiConfig.apiUrl}/api/auth/updateProfile";
-    final response = await http.put(
-      Uri.parse(apiUrl),
-      headers: {
-        'Authorization' : 'Bearer ${AuthController.getToken()}',
-        'Content-Type' : 'application/json',
-      },
-      body: jsonEncode({
-        'nama_ibu': namaIbuController.text,
-        'nama_ayah': namaAyahController.text,
-        'alamat': alamatController.text,
-        'telepon': teleponController.text,
-      }),
-    );
-    if (response.statusCode == 200) {
-      _showSuccessUpdate(context);
-        await Future.delayed(const Duration(seconds: 2));
+    try {
+      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/updateProfile";
+      final response = await http.put(
+        Uri.parse(apiUrl),
+        headers: {
+          'Authorization' : 'Bearer ${AuthController.getToken()}',
+          'Content-Type' : 'application/json',
+        },
+        body: jsonEncode({
+          'nama_ibu': namaIbuController.text,
+          'nama_ayah': namaAyahController.text,
+          'alamat': alamatController.text,
+          'telepon': teleponController.text,
+        }),
+      );
+      if (response.statusCode == 200) {
+        showSuccessUpdate(context);
+        return true;
       } else {
-        _showErrorUpdate(context);
+        showErrorUpdate(context);
+        return false;
       }
+    } catch (error) {
+      print('Error Updating profile: $error');
+      showErrorUpdate(context);
+      return false;
+    }
   }
 
-  static void _showSuccessUpdate(BuildContext context) {
+  static void showSuccessUpdate(BuildContext context) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.success,
@@ -96,7 +103,7 @@ class AuthController {
     ).show();
   }
 
-  static void _showErrorUpdate(BuildContext context) {
+  static void showErrorUpdate(BuildContext context) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.error,
