@@ -151,7 +151,7 @@ class _NewChangePasswordState extends State<NewChangePassword> {
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
                       hintText: "Masukkan kembali password anda...",
-                      labelText: "Password",
+                      labelText: "Konfirmasi Password",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
                         fontSize: 16,

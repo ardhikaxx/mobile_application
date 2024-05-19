@@ -435,14 +435,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       });
                     },
                     items: <String>[
-                      'A+',
-                      'A-',
-                      'B+',
-                      'B-',
-                      'O+',
-                      'O-',
-                      'AB+',
-                      'AB-'
+                      'A',
+                      'B',
+                      'AB',
+                      'O'
                     ].map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
