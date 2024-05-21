@@ -9,7 +9,7 @@ class EditProfile extends StatefulWidget {
   final UserData userData;
   final Function(UserData updatedUserData) onUpdate;
   
-  const EditProfile({Key? key, required this.userData, required this.onUpdate}) : super(key: key);
+  const EditProfile({super.key, required this.userData, required this.onUpdate});
 
 
   @override
@@ -35,6 +35,7 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController teleponController;
   late TextEditingController emailController;
 
+  // ignore: unused_element
   UserData _getUpdatedUserData() {
     return UserData(
       noKk: widget.userData.noKk,
@@ -93,14 +94,15 @@ class _EditProfileState extends State<EditProfile> {
           'Edit Profile',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0F6ECD),
+            color: Colors.white,
             fontSize: 25,
           ),
         ),
+        backgroundColor: const Color(0xFF0F6ECD),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
-            color: Color(0xFF0F6ECD),
+            color: Colors.white,
           ),
           onPressed: () {
             Get.back();
@@ -632,17 +634,19 @@ class _EditProfileState extends State<EditProfile> {
                             namaAyahController,
                             alamatController,
                             teleponController,
-                            );
-                            if (success) {
-                              AuthController.showSuccessUpdate(context);
-                              UserData updatedUserData = _getUpdatedUserData();
-                              widget.onUpdate(updatedUserData);
-                              Navigator.pop(context);
-                            } else {
-                              AuthController.showErrorUpdate(context);
-                            }
+                          );
+                          if (success) {
+                            // ignore: use_build_context_synchronously
+                            await AuthController.dataProfile(context, AuthController.getToken());
+                            UserData updatedUserData = _getUpdatedUserData();
+                            // ignore: use_build_context_synchronously
+                            AuthController.showSuccessUpdate(context, updatedUserData);
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            AuthController.showErrorUpdate(context);
                           }
-                        },
+                        }
+                      },
                       child: const Text(
                         "SIMPAN",
                         style: TextStyle(
@@ -653,6 +657,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
           ),

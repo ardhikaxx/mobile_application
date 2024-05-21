@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:posyandu_app/components/card_grafik.dart';
+import 'package:posyandu_app/controller/grafik_controller.dart';
 
 class Grafik extends StatefulWidget {
-  const Grafik({super.key, required userData});
+  final dynamic userData;
+  const Grafik({super.key, required this.userData});
 
   @override
   State<Grafik> createState() => _GrafikState();
 }
 
 class _GrafikState extends State<Grafik> {
-  final TextEditingController _searchController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    if (GrafikController.posyanduData.isEmpty) {
+      fetchPosyanduData();
+    }
+  }
+
+  Future<void> fetchPosyanduData() async {
+    await GrafikController.fetchPosyanduData(context);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +46,7 @@ class _GrafikState extends State<Grafik> {
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
             child: Center(
               child: Text(
-                'Grafik Pertumbuhan dan Perkembangan Anak',
+                'Timbanglah Anak Anda Setiap Bulan Anak Sehat, Tambah Umur Tambah Berat, Tambah Pandai',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -41,36 +55,30 @@ class _GrafikState extends State<Grafik> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xFF0F6ECD)),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: const InputDecoration(
-                        hintText: 'Cari...',
-                        hintStyle: TextStyle(fontWeight: FontWeight.bold),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+          const SizedBox(height: 20),
+          Expanded(
+            child: GrafikController.posyanduData.isEmpty
+                ? const Center(
+                    child: Text(
+                      'Tidak ada Data Anak',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
                       ),
                     ),
+                  )
+                : ListView.builder(
+                    itemCount: GrafikController.posyanduData.length,
+                    itemBuilder: (context, index) {
+                      final dataAnak = GrafikController.posyanduData[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: CardAnak(dataAnak: dataAnak),
+                      );
+                    },
                   ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.search,
-                      color: Color(0xFF0F6ECD),
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
           ),
         ],
       ),

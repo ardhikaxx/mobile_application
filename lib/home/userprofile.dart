@@ -7,7 +7,7 @@ import 'package:posyandu_app/model/user.dart';
 
 class Profile extends StatefulWidget {
   final UserData userData;
-  const Profile({Key? key, required this.userData}) : super(key: key);
+  const Profile({super.key, required this.userData});
 
   @override
   State<Profile> createState() => _ProfileState();

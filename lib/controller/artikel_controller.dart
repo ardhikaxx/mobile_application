@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class ArtikelController {
-  static String apiUrl = 'http://192.168.1.171:8000';
+  static String apiUrl = 'http://10.10.182.23:8000';
   static List<dynamic> artikelData = [];
 
   Future<void> fetchArtikelData(BuildContext context) async {

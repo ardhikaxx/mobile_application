@@ -8,7 +8,6 @@ class Imunisasi extends StatefulWidget {
 }
 
 class _ImunisasiState extends State<Imunisasi> {
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +24,10 @@ class _ImunisasiState extends State<Imunisasi> {
         titleSpacing: 20,
         automaticallyImplyLeading: false,
       ),
-      body: Column(
+      body: const Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
             child: Center(
               child: Text(
@@ -38,37 +37,6 @@ class _ImunisasiState extends State<Imunisasi> {
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.justify,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xFF0F6ECD)),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: const InputDecoration(
-                        hintText: 'Cari...',
-                        hintStyle: TextStyle(fontWeight: FontWeight.bold),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.search,
-                      color: Color(0xFF0F6ECD),
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
               ),
             ),
           ),

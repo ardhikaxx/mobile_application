@@ -7,8 +7,8 @@ import 'package:posyandu_app/auth/login.dart';
 import 'package:posyandu_app/model/user.dart';
 
 class ApiConfig {
-  static String apiUrl = "http://192.168.1.71:8000";
-  
+  static String apiUrl = "http://10.10.182.23:8000";
+
   static void setApiUrl(String newUrl) {
     apiUrl = newUrl;
   }
@@ -25,7 +25,8 @@ class AuthController {
     return _token;
   }
 
-  static Future<void> login(BuildContext context, String email, String password) async {
+  static Future<void> login(
+      BuildContext context, String email, String password) async {
     try {
       final String apiUrl = "${ApiConfig.apiUrl}/api/auth/login";
       final response = await http.post(Uri.parse(apiUrl),
@@ -34,6 +35,7 @@ class AuthController {
         final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
         final token = jsonData['data']['token'] as String;
         setToken(token);
+        // ignore: use_build_context_synchronously
         await tokenRequest(context, token);
       }
     } catch (e) {
@@ -49,7 +51,8 @@ class AuthController {
       );
       if (responseData.statusCode == 200) {
         final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
-        final userData = UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
+        final userData =
+            UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
         _showMessageDialog(context, userData.namaIbu, userData);
       }
     } catch (e) {
@@ -58,50 +61,61 @@ class AuthController {
   }
 
   static Future<bool> updateProfile(
-    BuildContext context,
-    TextEditingController namaIbuController,
-    TextEditingController namaAyahController,
-    TextEditingController alamatController,
-    TextEditingController teleponController,
-  ) async {
-    try {
-      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/updateProfile";
-      final response = await http.put(
-        Uri.parse(apiUrl),
-        headers: {
-          'Authorization' : 'Bearer ${AuthController.getToken()}',
-          'Content-Type' : 'application/json',
-        },
-        body: jsonEncode({
-          'nama_ibu': namaIbuController.text,
-          'nama_ayah': namaAyahController.text,
-          'alamat': alamatController.text,
-          'telepon': teleponController.text,
-        }),
-      );
-      if (response.statusCode == 200) {
-        showSuccessUpdate(context);
-        return true;
-      } else {
-        showErrorUpdate(context);
-        return false;
-      }
-    } catch (error) {
-      print('Error Updating profile: $error');
+  BuildContext context,
+  TextEditingController namaIbuController,
+  TextEditingController namaAyahController,
+  TextEditingController alamatController,
+  TextEditingController teleponController,
+) async {
+  try {
+    final String apiUrl = "${ApiConfig.apiUrl}/api/auth/updateProfile";
+    final response = await http.put(
+      Uri.parse(apiUrl),
+      headers: {
+        'Authorization': 'Bearer ${AuthController.getToken()}',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'nama_ibu': namaIbuController.text,
+        'nama_ayah': namaAyahController.text,
+        'alamat': alamatController.text,
+        'telepon': teleponController.text,
+      }),
+    );
+    if (response.statusCode == 200) {
+      // Panggil metode untuk mendapatkan data profil terbaru setelah pembaruan
+      await dataProfile(context, AuthController.getToken());
+      return true;
+    } else {
+      // ignore: use_build_context_synchronously
       showErrorUpdate(context);
       return false;
     }
+  } catch (error) {
+    print('Error Updating profile: $error');
+    // ignore: use_build_context_synchronously
+    showErrorUpdate(context);
+    return false;
   }
+}
 
-  static void showSuccessUpdate(BuildContext context) {
-    AwesomeDialog(
-      context: context,
-      dialogType: DialogType.success,
-      animType: AnimType.bottomSlide,
-      title: 'Berhasil',
-      desc: 'Profile Berhasil di Edit!',
-    ).show();
-  }
+  static void showSuccessUpdate(BuildContext context, UserData userData) {
+  AwesomeDialog(
+    context: context,
+    dialogType: DialogType.success,
+    animType: AnimType.bottomSlide,
+    title: 'Berhasil',
+    desc: 'Profile Berhasil di Edit!',
+    btnOkOnPress: () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NavigationButtom(userData: userData),
+        ),
+      );
+    },
+  ).show();
+}
 
   static void showErrorUpdate(BuildContext context) {
     AwesomeDialog(
@@ -121,7 +135,8 @@ class AuthController {
       );
       if (responseData.statusCode == 200) {
         final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
-        final userData = UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
+        final userData =
+            UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
         _showMessageDialog(context, userData.namaIbu, userData);
       }
     } catch (e) {
@@ -314,4 +329,3 @@ void _showMessageDialog(BuildContext context, String data, UserData userData) {
     );
   });
 }
-

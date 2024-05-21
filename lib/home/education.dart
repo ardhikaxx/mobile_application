@@ -19,16 +19,14 @@ class _EducationState extends State<Education> {
   void initState() {
     super.initState();
     if (ArtikelController.artikelData.isEmpty) {
-      // Cek apakah data sudah ada atau belum
       fetchArtikelData();
     }
   }
 
   Future<void> fetchArtikelData() async {
     try {
-      await artikelController.fetchArtikelData(
-          context); // Panggil fungsi fetch dari ArtikelController
-      setState(() {}); // Update UI setelah mendapatkan data
+      await artikelController.fetchArtikelData(context);
+      setState(() {});
     } catch (e) {
       print('Error fetching artikel data: $e');
     }
