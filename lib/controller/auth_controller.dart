@@ -7,7 +7,7 @@ import 'package:posyandu_app/auth/login.dart';
 import 'package:posyandu_app/model/user.dart';
 
 class ApiConfig {
-  static String apiUrl = "http://10.10.182.23:8000";
+  static String apiUrl = "http://192.168.18.50:8000";
 
   static void setApiUrl(String newUrl) {
     apiUrl = newUrl;
@@ -53,6 +53,7 @@ class AuthController {
         final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
         final userData =
             UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
+        // ignore: use_build_context_synchronously
         _showMessageDialog(context, userData.namaIbu, userData);
       }
     } catch (e) {

@@ -18,9 +18,7 @@ class _EducationState extends State<Education> {
   @override
   void initState() {
     super.initState();
-    if (ArtikelController.artikelData.isEmpty) {
-      fetchArtikelData();
-    }
+    fetchArtikelData();
   }
 
   Future<void> fetchArtikelData() async {
@@ -65,22 +63,16 @@ class _EducationState extends State<Education> {
           ),
           const SizedBox(height: 20),
           Expanded(
-            child: ArtikelController
-                    .artikelData.isEmpty
-                ? const Center(
-                    child: Text(
-                      'Tidak ada artikel terbaru',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: ArtikelController.artikelData.length > 2
-                        ? 2
-                        : ArtikelController.artikelData.length,
+            child: FutureBuilder(
+              future: artikelController.fetchArtikelData(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  return ListView.builder(
+                    itemCount: ArtikelController.artikelData.length,
                     itemBuilder: (context, index) {
                       final artikel = ArtikelController.artikelData[index];
                       return Padding(
@@ -88,7 +80,6 @@ class _EducationState extends State<Education> {
                         child: CardArtikel(
                           judul: artikel.judul,
                           gambar: artikel.gambar,
-                          tanggalUpload: artikel.tanggalUpload,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -96,8 +87,7 @@ class _EducationState extends State<Education> {
                                 builder: (context) => DetailEducation(
                                   judul: artikel.judul,
                                   gambar: artikel.gambar,
-                                  tanggalUpload: artikel.tanggalUpload,
-                                  deskripsi: artikel.deskripsi,
+                                  isi: artikel.isi,
                                 ),
                               ),
                             );
@@ -105,7 +95,10 @@ class _EducationState extends State<Education> {
                         ),
                       );
                     },
-                  ),
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),

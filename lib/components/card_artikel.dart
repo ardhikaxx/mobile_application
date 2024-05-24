@@ -1,18 +1,17 @@
 import 'dart:convert';
-
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class CardArtikel extends StatelessWidget {
   final String judul;
   final String gambar;
-  final DateTime tanggalUpload;
   final Function onTap;
 
   const CardArtikel({
     super.key,
     required this.judul,
     required this.gambar,
-    required this.tanggalUpload,
     required this.onTap,
   });
 
@@ -46,25 +45,12 @@ class CardArtikel extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    judul,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Tanggal Upload: ${tanggalUpload.day}/${tanggalUpload.month}/${tanggalUpload.year}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ],
+              child: Text(
+                judul,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
           ],
@@ -74,14 +60,40 @@ class CardArtikel extends StatelessWidget {
   }
 
   Widget _buildImage() {
-    try {
-      final imageData = base64.decode(gambar);
-      return Image.memory(
+    return FutureBuilder(
+      future: _loadImage(gambar),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            return Image.memory(
+              snapshot.data as Uint8List,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 150,
+            );
+          } else {
+            return const Placeholder();
+          }
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  Future<Uint8List?> _loadImage(String base64Image) async {
+    final cacheManager = DefaultCacheManager();
+    final fileInfo = await cacheManager.getFileFromCache(base64Image);
+    if (fileInfo != null) {
+      return fileInfo.file.readAsBytes();
+    } else {
+      final imageData = base64.decode(base64Image);
+      await cacheManager.putFile(
+        base64Image,
         imageData,
-        fit: BoxFit.cover,
+        fileExtension: 'jpg',
       );
-    } catch (e) {
-      return const Placeholder();
+      return imageData;
     }
   }
 }

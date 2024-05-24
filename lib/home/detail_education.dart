@@ -1,19 +1,19 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class DetailEducation extends StatelessWidget {
   final String judul;
   final String gambar;
-  final DateTime tanggalUpload;
-  final String deskripsi;
+  final String isi;
 
   const DetailEducation({
     super.key,
     required this.judul,
     required this.gambar,
-    required this.tanggalUpload,
-    required this.deskripsi,
+    required this.isi,
   });
 
   @override
@@ -57,19 +57,10 @@ class DetailEducation extends StatelessWidget {
                   fontSize: 22,
                 ),
               ),
-              const SizedBox(height: 10),
-              // Tanggal Upload
-              Text(
-                'Tanggal Upload: ${tanggalUpload.day}/${tanggalUpload.month}/${tanggalUpload.year}',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              ),
               const SizedBox(height: 20),
-              // Deskripsi
+              // Isi
               Text(
-                deskripsi,
+                isi,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -82,14 +73,39 @@ class DetailEducation extends StatelessWidget {
   }
 
   Widget _buildImage() {
-    try {
-      final imageData = base64.decode(gambar);
-      return Image.memory(
+    return FutureBuilder(
+      future: _loadImage(gambar),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            return Image.memory(
+              snapshot.data as Uint8List,
+              fit: BoxFit.cover,
+              width: double.infinity,
+            );
+          } else {
+            return const Placeholder();
+          }
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  Future<Uint8List?> _loadImage(String base64Image) async {
+    final cacheManager = DefaultCacheManager();
+    final fileInfo = await cacheManager.getFileFromCache(base64Image);
+    if (fileInfo != null) {
+      return fileInfo.file.readAsBytes();
+    } else {
+      final imageData = base64.decode(base64Image);
+      await cacheManager.putFile(
+        base64Image,
         imageData,
-        fit: BoxFit.cover,
+        fileExtension: 'jpg',
       );
-    } catch (e) {
-      return const Placeholder();
+      return imageData;
     }
   }
 }

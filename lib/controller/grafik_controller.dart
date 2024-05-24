@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:posyandu_app/controller/auth_controller.dart';
 
 class GrafikController {
-  static String apiUrl = "http://10.10.182.23:8000";
+  static String apiUrl = "http://192.168.18.50:8000";
   static List posyanduData = [];
 
   static void setApiUrl(String newUrl) {
