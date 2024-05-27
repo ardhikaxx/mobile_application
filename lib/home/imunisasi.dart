@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:posyandu_app/components/card_imunisasi.dart';
+import 'package:posyandu_app/controller/imunisasi_controller.dart';
 
 class Imunisasi extends StatefulWidget {
-  const Imunisasi({super.key, required userData});
+  final dynamic userData;
+  const Imunisasi({super.key, required this.userData});
 
   @override
   State<Imunisasi> createState() => _ImunisasiState();
 }
 
 class _ImunisasiState extends State<Imunisasi> {
+
+  @override
+  void initState() {
+    super.initState();
+    if (ImunisasiController.imunisasiData.isEmpty) {
+      fetchDataImunisasi();
+    }
+  }
+
+  Future<void> fetchDataImunisasi() async {
+    await ImunisasiController.fetchDataImunisasi(context);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +40,7 @@ class _ImunisasiState extends State<Imunisasi> {
         titleSpacing: 20,
         automaticallyImplyLeading: false,
       ),
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
@@ -39,6 +55,31 @@ class _ImunisasiState extends State<Imunisasi> {
                 textAlign: TextAlign.justify,
               ),
             ),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: ImunisasiController.imunisasiData.isEmpty
+                ? const Center(
+                    child: Text(
+                      'Tidak ada Data Anak',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: ImunisasiController.imunisasiData.length,
+                    itemBuilder: (context, index) {
+                      final dataAnak = ImunisasiController.imunisasiData[index]; // Perbaikan disini
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: CardImunisasi(dataAnak: dataAnak), // Perbaikan disini
+                      );
+                    },
+                  ),
           ),
         ],
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:posyandu_app/home/detail_grafik.dart';// Import your detail page
+import 'package:posyandu_app/home/detail_grafik.dart';
 
 class CardAnak extends StatelessWidget {
   final Map<String, dynamic> dataAnak;
