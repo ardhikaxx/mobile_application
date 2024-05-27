@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:posyandu_app/auth/forgot_password.dart';
 import 'package:posyandu_app/controller/auth_controller.dart';
 import 'package:posyandu_app/auth/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final authController = Get.find<AuthController>();
@@ -14,10 +15,39 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late SharedPreferences _preferences;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool rememberMeValue = false;
   bool isPasswordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    _preferences = await SharedPreferences.getInstance();
+    setState(() {
+      rememberMeValue = _preferences.getBool('rememberMe') ?? false;
+      if (rememberMeValue) {
+        emailController.text = _preferences.getString('email') ?? '';
+        passwordController.text = _preferences.getString('password') ?? '';
+      }
+    });
+  }
+
+  Future<void> _savePreferences() async {
+    await _preferences.setBool('rememberMe', rememberMeValue);
+    if (rememberMeValue) {
+      await _preferences.setString('email', emailController.text);
+      await _preferences.setString('password', passwordController.text);
+    } else {
+      await _preferences.remove('email');
+      await _preferences.remove('password');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                           onChanged: (value) {
                             setState(() {
                               rememberMeValue = value!;
+                              _savePreferences();
                             });
                           },
                           activeColor: const Color(0xFF0F6ECD),
