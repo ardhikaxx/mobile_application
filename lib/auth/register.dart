@@ -85,6 +85,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: noKKController,
+                    maxLength: 16,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -127,6 +128,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validateNIK = true;
                         });
                         return 'Nomor Kartu Keluarga tidak boleh kosong';
+                      } else if (value.length != 16) {
+                        setState(() {
+                          _validateNIK = true;
+                        });
+                        return 'Nomor Kartu Keluarga harus terdiri dari 16 digit';
                       }
                       return null;
                     },
@@ -180,6 +186,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validate = true;
                         });
                         return 'Email tidak boleh kosong';
+                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                        setState(() {
+                          _validate = true;
+                        });
+                        return 'Format Email Tidak Valid';
                       }
                       return null;
                     },
@@ -188,6 +199,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: nikIbuController,
+                    maxLength: 16,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -230,6 +242,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validateNIK = true;
                         });
                         return 'NIK tidak boleh kosong';
+                      } else if (value.length != 16) {
+                        setState(() {
+                          _validateNIK = true;
+                        });
+                        return 'NIK harus terdiri dari 16 digit';
                       }
                       return null;
                     },
@@ -493,6 +510,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: nikAyahController,
+                    maxLength: 16,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -535,6 +553,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validateNIK = true;
                         });
                         return 'NIK Ayah tidak boleh kosong';
+                      } else if (value != 16) {
+                        setState(() {
+                          _validateNIK = true;
+                        });
+                        return 'NIK ayah harus terdiri dari 16 digit';
                       }
                       return null;
                     },
@@ -758,6 +781,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validatePassword = true;
                         });
                         return 'Password tidak boleh kosong';
+                      } else if(value.length< 6 || value.length > 12) {
+                        setState(() {
+                          _validatePassword = true;
+                        });
+                        return 'Password harus terdiri dari 6 sampai 12 karakter';
                       }
                       return null;
                     },
