@@ -31,57 +31,155 @@ class DetailImunisasi extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Card(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tanggal Posyandu: ${dataAnak['tanggal_posyandu']}',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return IntrinsicWidth(
+                child: DataTable(
+                  columnSpacing: 10,
+                  headingRowColor: MaterialStateColor.resolveWith((states) => const Color(0xFF0F6ECD)),
+                  columns: <DataColumn>[
+                    DataColumn(
+                      numeric: false,
+                      label: Container(
+                        width: 65, // Sesuaikan dengan lebar yang diinginkan
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Tanggal',
+                          textAlign: TextAlign.center,
+                          maxLines: 3,
+                          softWrap: true,
+                          overflow: TextOverflow.visible,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Tinggi Badan Anak: ${dataAnak['tb_anak']} cm',
-                      style: const TextStyle(fontSize: 18),
+                    DataColumn(
+                      numeric: false,
+                      label: Container(
+                        width: 50, // Sesuaikan dengan lebar yang diinginkan
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'TB',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Berat Badan Anak: ${dataAnak['bb_anak']} kg',
-                      style: const TextStyle(fontSize: 18),
+                    DataColumn(
+                      numeric: false,
+                      label: Container(
+                        width: 50, // Sesuaikan dengan lebar yang diinginkan
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'BB',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          //textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Umur Anak: ${dataAnak['umur_anak']} tahun',
-                      style: const TextStyle(fontSize: 18),
+                    DataColumn(
+                      numeric: false,
+                      label: Container(
+                        width: 50, // Sesuaikan dengan lebar yang diinginkan
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Umur',
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Nama Vaksin: ${dataAnak['nama_vaksin']}',
-                      style: const TextStyle(fontSize: 18),
+                    DataColumn(
+                      numeric: false,
+                      label: Container(
+                        width: 80, // Sesuaikan dengan lebar yang diinginkan
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Nama Vaksin',
+                          maxLines: 5,
+                          overflow: TextOverflow.visible,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
+                  rows: List.generate(dataAnak['posyandu'].length, (index) {
+                    final posyanduData = dataAnak['posyandu'][index];
+                    return DataRow(
+                      cells: [
+                        DataCell(
+                          Container(
+                            width: 60, // Sesuaikan dengan lebar yang diinginkan
+                            child: Text(
+                              posyanduData['tanggal_posyandu'],
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                            width: 50, // Sesuaikan dengan lebar yang diinginkan
+                            child: Text(
+                              '${posyanduData['tb_anak']} cm',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                            width: 50, // Sesuaikan dengan lebar yang diinginkan
+                            child: Text(
+                              '${posyanduData['bb_anak']} kg',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                            width: 50, // Sesuaikan dengan lebar yang diinginkan
+                            child: Text(
+                              '${posyanduData['umur_anak']} bulan',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                            width: 80, // Sesuaikan dengan lebar yang diinginkan
+                            child: Text(
+                              posyanduData['nama_vaksin'].join(', '),
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          )
+                        ),
+                      ],
+                    );
+                  }),
                 ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text('Kembali'),
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
       ),
     );
