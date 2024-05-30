@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:posyandu_app/components/card_artikel.dart';
 import 'package:posyandu_app/controller/artikel_controller.dart';
 import 'package:posyandu_app/home/detail_education.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 class Education extends StatefulWidget {
   final dynamic userData;
   const Education({super.key, required this.userData});
 
   @override
-  // ignore: library_private_types_in_public_api
   _EducationState createState() => _EducationState();
 }
 
@@ -67,16 +67,36 @@ class _EducationState extends State<Education> {
               future: artikelController.fetchArtikelData(context),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else {
+                  return ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: SkeletonLoader(
+                          builder: Card(
+                            child: Container(
+                              height: 220,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                          items: 1,
+                          period: const Duration(seconds: 2),
+                          highlightColor: Colors.grey[300]!,
+                          baseColor: Colors.grey[100]!,
+                        ),
+                      );
+                    },
+                  );
+                } else if (ArtikelController.artikelData.isNotEmpty) {
                   return ListView.builder(
                     itemCount: ArtikelController.artikelData.length,
                     itemBuilder: (context, index) {
                       final artikel = ArtikelController.artikelData[index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: CardArtikel(
                           judul: artikel.judul,
                           gambar: artikel.gambar,
@@ -96,6 +116,8 @@ class _EducationState extends State<Education> {
                       );
                     },
                   );
+                } else {
+                  return const Center(child: Text('No articles available'));
                 }
               },
             ),

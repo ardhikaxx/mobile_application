@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DetailGrafik extends StatelessWidget {
   final Map<String, dynamic> dataAnak;
@@ -40,24 +40,58 @@ class DetailGrafik extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Text(
-                'Grafik Pertumbuhan dan Perkembangan Anak',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0F6ECD),
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 0.1,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
+                width: double.infinity,
+                height: 65,
+                child: const Center(
+                  child: Text(
+                    'Grafik Pertumbuhan dan Perkembangan Anak',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF0F6ECD),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 20),
             Expanded(
               child: ListView(
                 children: [
-                  _buildBarChartCard('Berat Badan (kg)', beratBadanData, Colors.blue, posyanduData),
+                  const Text(
+                    'Grafik Perkembangan Berat Badan Anak',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  _buildBarChartCard('Berat Badan (kg)', beratBadanData, Colors.blue),
                   const SizedBox(height: 20),
-                  _buildBarChartCard('Tinggi Badan (cm)', tinggiBadanData, Colors.green, posyanduData),
+                  const Text(
+                    'Grafik Perkembangan Tinggi Badan Anak',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  _buildBarChartCard('Tinggi Badan (cm)', tinggiBadanData, Colors.green),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -68,39 +102,27 @@ class DetailGrafik extends StatelessWidget {
     );
   }
 
-  List<BarChartGroupData> _createBeratBadanData(List<dynamic> data) {
-    return data.asMap().entries.map<BarChartGroupData>((entry) {
-      final index = entry.key;
+  List<ChartSampleData> _createBeratBadanData(List<dynamic> data) {
+    return data.asMap().entries.map<ChartSampleData>((entry) {
       final posyandu = entry.value;
-      return BarChartGroupData(
-        x: index,
-        barRods: [
-          BarChartRodData(
-            toY: posyandu['bb_anak'].toDouble(),
-            color: Colors.blue,
-          ),
-        ],
+      return ChartSampleData(
+        month: _getMonthName(posyandu['tanggal_posyandu']),
+        value: posyandu['bb_anak'].toDouble(),
       );
     }).toList();
   }
 
-  List<BarChartGroupData> _createTinggiBadanData(List<dynamic> data) {
-    return data.asMap().entries.map<BarChartGroupData>((entry) {
-      final index = entry.key;
+  List<ChartSampleData> _createTinggiBadanData(List<dynamic> data) {
+    return data.asMap().entries.map<ChartSampleData>((entry) {
       final posyandu = entry.value;
-      return BarChartGroupData(
-        x: index,
-        barRods: [
-          BarChartRodData(
-            toY: posyandu['tb_anak'].toDouble(),
-            color: Colors.green,
-          ),
-        ],
+      return ChartSampleData(
+        month: _getMonthName(posyandu['tanggal_posyandu']),
+        value: posyandu['tb_anak'].toDouble(),
       );
     }).toList();
   }
 
-  Widget _buildBarChartCard(String title, List<BarChartGroupData> data, Color color, List<dynamic> posyanduData) {
+  Widget _buildBarChartCard(String title, List<ChartSampleData> data, Color color) {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -123,30 +145,17 @@ class DetailGrafik extends StatelessWidget {
             const SizedBox(height: 16),
             SizedBox(
               height: 200,
-              child: BarChart(
-                BarChartData(
-                  alignment: BarChartAlignment.spaceAround,
-                  barGroups: data,
-                  titlesData: FlTitlesData(
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: true),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: (double value, TitleMeta meta) {
-                          final month = _getMonthName(posyanduData[value.toInt()]['tanggal_posyandu']);
-                          return SideTitleWidget(
-                            axisSide: meta.axisSide,
-                            child: Text(month),
-                          );
-                        },
-                      ),
-                    ),
+              child: SfCartesianChart(
+                primaryXAxis: const CategoryAxis(),
+                primaryYAxis: const NumericAxis(),
+                series: <CartesianSeries<ChartSampleData, String>>[
+                  ColumnSeries<ChartSampleData, String>(
+                    dataSource: data,
+                    xValueMapper: (ChartSampleData sales, _) => sales.month,
+                    yValueMapper: (ChartSampleData sales, _) => sales.value,
+                    color: color,
                   ),
-                  borderData: FlBorderData(show: false),
-                  gridData: FlGridData(show: true),
-                ),
+                ],
               ),
             ),
           ],
@@ -162,9 +171,9 @@ class DetailGrafik extends StatelessWidget {
   }
 }
 
-class ChartData {
+class ChartSampleData {
   final String month;
   final double value;
 
-  ChartData(this.month, this.value);
+  ChartSampleData({required this.month, required this.value});
 }

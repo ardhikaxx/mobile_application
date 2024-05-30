@@ -553,6 +553,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validateNIK = true;
                         });
                         return 'NIK Ayah tidak boleh kosong';
+                      // ignore: unrelated_type_equality_checks
                       } else if (value != 16) {
                         setState(() {
                           _validateNIK = true;

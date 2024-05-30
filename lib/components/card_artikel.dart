@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
+import 'package:image_card/image_card.dart';
 
 class CardArtikel extends StatelessWidget {
   final String judul;
@@ -17,83 +19,101 @@ class CardArtikel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap as void Function()?,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF3F8FE),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        width: 317,
-        height: 220,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Center(
-                child: _buildImage(),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                judul,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildImage() {
-    return FutureBuilder(
+    return FutureBuilder<Uint8List?>(
       future: _loadImage(gambar),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
-            return Image.memory(
-              snapshot.data as Uint8List,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: 150,
+            return GestureDetector(
+              onTap: onTap as void Function()?,
+              child: TransparentImageCard(
+                width: double.infinity,
+                imageProvider: MemoryImage(snapshot.data!),
+                tags: [_tag('Edukasi', onTap)],
+                title: _title(judul, color: Colors.white),
+              ),
             );
+          } else if (snapshot.hasError) {
+            return const Icon(Icons.error);
           } else {
-            return const Placeholder();
+            return _buildSkeletonLoader();
           }
         } else {
-          return const CircularProgressIndicator();
+          return _buildSkeletonLoader();
         }
       },
     );
   }
 
+  Widget _buildSkeletonLoader() {
+    return const SkeletonLoader(
+      builder: Card(
+        child: SizedBox(
+          width: double.infinity,
+          height: 220,
+        ),
+      ),
+    );
+  }
+
+  Widget _title(String title, {required Color color}) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: color,
+      ),
+    );
+  }
+
+  Widget _content({required Color color}) {
+    return Text(
+      'Deskripsi singkat artikel',
+      style: TextStyle(color: color),
+    );
+  }
+
+  Widget _tag(String text, Function onTap) {
+    return GestureDetector(
+      onTap: onTap as void Function()?,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
   Future<Uint8List?> _loadImage(String base64Image) async {
     final cacheManager = DefaultCacheManager();
-    final fileInfo = await cacheManager.getFileFromCache(base64Image);
-    if (fileInfo != null) {
-      return fileInfo.file.readAsBytes();
-    } else {
-      final imageData = base64.decode(base64Image);
-      await cacheManager.putFile(
-        base64Image,
-        imageData,
-        fileExtension: 'jpg',
-      );
-      return imageData;
+
+    // Loop for retrying until the image is loaded successfully
+    while (true) {
+      try {
+        final fileInfo = await cacheManager.getFileFromCache(base64Image);
+        if (fileInfo != null) {
+          return fileInfo.file.readAsBytes();
+        } else {
+          final imageData = base64.decode(base64Image);
+          await cacheManager.putFile(
+            base64Image,
+            imageData,
+            fileExtension: 'jpg',
+          );
+          return imageData;
+        }
+      } catch (e) {
+        // If an error occurs, retry loading the image after a delay
+        print('Error loading image: $e');
+        await Future.delayed(const Duration(seconds: 1));
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:posyandu_app/components/card_grafik.dart';
 import 'package:posyandu_app/controller/grafik_controller.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 class Grafik extends StatefulWidget {
   final dynamic userData;
@@ -58,20 +59,18 @@ class _GrafikState extends State<Grafik> {
           const SizedBox(height: 20),
           Expanded(
             child: GrafikController.posyanduData.isEmpty
-                ? const Center(
-                    child: Text(
-                      'Tidak ada Data Anak',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
+                ? SkeletonLoader(
+                    builder: const CardAnakSkeleton(),
+                    items: 3,
+                    period: const Duration(seconds: 2),
+                    highlightColor: Colors.grey[300]!,
+                    baseColor: Colors.grey[100]!,
                   )
                 : ListView.builder(
                     itemCount: GrafikController.posyanduData.length,
                     itemBuilder: (context, index) {
                       final dataAnak = GrafikController.posyanduData[index];
+                      MainAxisAlignment.center;
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
@@ -81,6 +80,55 @@ class _GrafikState extends State<Grafik> {
                   ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CardAnakSkeleton extends StatelessWidget {
+  const CardAnakSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SkeletonLoader(
+              builder: Container(
+                width: double.infinity,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
+              items: 2,
+              period: const Duration(seconds: 2),
+              highlightColor: Colors.grey[100]!,
+              baseColor: Colors.grey[300]!,
+            ),
+            const SizedBox(height: 8),
+            SkeletonLoader(
+              builder: Container(
+                width: double.infinity,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
+              items: 2,
+              period: const Duration(seconds: 2),
+              highlightColor: Colors.grey[100]!,
+              baseColor: Colors.grey[300]!,
+            ),
+          ],
+        ),
       ),
     );
   }

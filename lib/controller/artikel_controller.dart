@@ -3,24 +3,21 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class ArtikelController {
-  static String apiUrl = 'http://192.168.1.42:8000';
-  static List<dynamic> artikelData = [];
+  static String apiUrl = 'http://192.168.18.50:8000';
+  static List<Artikel> artikelData = [];
 
   Future<void> fetchArtikelData(BuildContext context) async {
     try {
-      final responseData = await http.get(
+      final response = await http.get(
         Uri.parse("${ArtikelController.apiUrl}/api/edukasi"),
       );
-      if (responseData.statusCode == 200) {
-        final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
+      if (response.statusCode == 200) {
+        final jsonGet = jsonDecode(response.body) as Map<String, dynamic>;
         final artikelDataFromApi = jsonGet['data'] as List<dynamic>;
 
-        List<dynamic> processedArtikels = [];
-        for (var artikelJson in artikelDataFromApi) {
-          final artikel = Artikel.fromJson(artikelJson);
-          processedArtikels.add(artikel);
-        }
-        artikelData = processedArtikels;
+        artikelData = artikelDataFromApi.map((artikelJson) {
+          return Artikel.fromJson(artikelJson);
+        }).toList();
       } else {
         throw Exception('Failed to fetch data');
       }
@@ -32,20 +29,20 @@ class ArtikelController {
 
 class Artikel {
   final String judul;
-  final String gambar;
   final String isi;
+  final String gambar;
 
   Artikel({
     required this.judul,
-    required this.gambar,
     required this.isi,
+    required this.gambar,
   });
 
   factory Artikel.fromJson(Map<String, dynamic> json) {
     return Artikel(
       judul: json['judul'] ?? '',
-      gambar: json['foto'] ?? '',
       isi: json['isi'] ?? '',
+      gambar: json['gambar'] ?? '',
     );
   }
 }

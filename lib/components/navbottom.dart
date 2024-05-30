@@ -35,8 +35,7 @@ class _NavigationButtomState extends State<NavigationButtom> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      _pageController.animateToPage(index,
-          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      _pageController.jumpToPage(index);
     });
   }
 
@@ -45,6 +44,7 @@ class _NavigationButtomState extends State<NavigationButtom> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           DashboardPage(userData: widget.userData),
           Education(userData: widget.userData),

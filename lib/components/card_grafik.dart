@@ -19,13 +19,13 @@ class CardAnak extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF3F8FE),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 3,
-              blurRadius: 15,
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 0.1,
+              blurRadius: 5,
               offset: const Offset(0, 2),
             ),
           ],
@@ -34,8 +34,8 @@ class CardAnak extends StatelessWidget {
         height: 65,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 dataAnak['nama_anak'],
@@ -44,6 +44,10 @@ class CardAnak extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: Color(0xFF0F6ECD),
               ),
             ],
           ),

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 class DetailEducation extends StatelessWidget {
   final String judul;
@@ -84,28 +85,55 @@ class DetailEducation extends StatelessWidget {
               width: double.infinity,
             );
           } else {
-            return const Placeholder();
+            return const SkeletonLoader(
+              builder: Card(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                ),
+              ),
+            );
           }
         } else {
-          return const CircularProgressIndicator();
+          return const SkeletonLoader(
+            builder: Card(
+              child: SizedBox(
+                width: double.infinity,
+                height: 200,
+              ),
+            ),
+          );
         }
       },
     );
   }
 
   Future<Uint8List?> _loadImage(String base64Image) async {
-    final cacheManager = DefaultCacheManager();
-    final fileInfo = await cacheManager.getFileFromCache(base64Image);
-    if (fileInfo != null) {
-      return fileInfo.file.readAsBytes();
-    } else {
-      final imageData = base64.decode(base64Image);
-      await cacheManager.putFile(
-        base64Image,
-        imageData,
-        fileExtension: 'jpg',
-      );
-      return imageData;
+    try {
+      final cacheManager = DefaultCacheManager();
+      final fileInfo = await cacheManager.getFileFromCache(base64Image);
+      if (fileInfo != null) {
+        return fileInfo.file.readAsBytes();
+      } else {
+        if (isValidBase64(base64Image)) {
+          final imageData = base64.decode(base64Image);
+          await cacheManager.putFile(
+            base64Image,
+            imageData,
+            fileExtension: 'jpg',
+          );
+          return imageData;
+        } else {
+          throw const FormatException('Invalid base64 string');
+        }
+      }
+    } catch (e) {
+      return null;
     }
+  }
+
+  bool isValidBase64(String base64String) {
+    final base64RegExp = RegExp(r'^[A-Za-z0-9+/]+={0,2}$');
+    return base64RegExp.hasMatch(base64String);
   }
 }

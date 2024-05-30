@@ -163,6 +163,14 @@ class _ProfileState extends State<Profile> {
                     decoration: BoxDecoration(
                       color: const Color(0xFF0F6ECD),
                       borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 0.1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child:
                         const Icon(Icons.edit, color: Colors.white, size: 30),
@@ -214,6 +222,14 @@ class _ProfileState extends State<Profile> {
                     decoration: BoxDecoration(
                       color: const Color(0xFF0F6ECD),
                       borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 0.1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child:
                         const Icon(Icons.logout, color: Colors.white, size: 30),

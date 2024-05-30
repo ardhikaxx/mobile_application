@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:posyandu_app/components/navbottom.dart';
 import 'package:posyandu_app/auth/login.dart';
 import 'package:posyandu_app/model/user.dart';
 
 class ApiConfig {
-  static String apiUrl = "http://192.168.1.42:8000";
+  static String apiUrl = "http://192.168.18.50:8000";
 
   static void setApiUrl(String newUrl) {
     apiUrl = newUrl;
@@ -37,9 +38,14 @@ class AuthController {
         setToken(token);
         // ignore: use_build_context_synchronously
         await tokenRequest(context, token);
+      } else {
+        // ignore: use_build_context_synchronously
+        _showLoginErrorDialog(context);
       }
     } catch (e) {
       print('Error: $e');
+      // ignore: use_build_context_synchronously
+      _showLoginErrorDialog(context);
     }
   }
 
@@ -108,12 +114,9 @@ class AuthController {
     title: 'Berhasil',
     desc: 'Profile Berhasil di Edit!',
     btnOkOnPress: () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NavigationButtom(userData: userData),
-        ),
-      );
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.to(() => NavigationButtom(userData: userData));
+      });
     },
   ).show();
 }
@@ -323,10 +326,17 @@ void _showMessageDialog(BuildContext context, String data, UserData userData) {
   ).show();
 
   Future.delayed(const Duration(seconds: 2), () {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-          builder: (context) => NavigationButtom(userData: userData)),
-    );
+    Get.off(() => NavigationButtom(userData: userData));
   });
+}
+
+void _showLoginErrorDialog(BuildContext context) {
+  AwesomeDialog(
+    context: context,
+    dialogType: DialogType.error,
+    animType: AnimType.bottomSlide,
+    title: 'Login Gagal',
+    desc: 'Email atau password salah. Silakan coba lagi.',
+    btnOkOnPress: () {},
+  ).show();
 }
