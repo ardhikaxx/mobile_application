@@ -94,7 +94,6 @@ class CardArtikel extends StatelessWidget {
   Future<Uint8List?> _loadImage(String base64Image) async {
     final cacheManager = DefaultCacheManager();
 
-    // Loop for retrying until the image is loaded successfully
     while (true) {
       try {
         final fileInfo = await cacheManager.getFileFromCache(base64Image);
@@ -110,7 +109,6 @@ class CardArtikel extends StatelessWidget {
           return imageData;
         }
       } catch (e) {
-        // If an error occurs, retry loading the image after a delay
         print('Error loading image: $e');
         await Future.delayed(const Duration(seconds: 1));
       }

@@ -90,6 +90,26 @@ class CardImunisasi extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailImunisasi(dataAnak: dataAnak),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF0F6ECD), 
+                foregroundColor: Colors.white, 
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: const Text('Lihat Riwayat Posyandu'),
+            ),
           ],
         ),
       ),

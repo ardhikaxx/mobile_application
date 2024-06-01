@@ -54,7 +54,7 @@ class _ImunisasiState extends State<Imunisasi> {
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
             child: Center(
               child: Text(
-                'Riwayat Imunisasi pada Anak',
+                'Yuk, Bunda! Pastikan anak kita mendapatkan imunisasi lengkap dan rutin memeriksakan kesehatan di posyandu. Kesehatan si kecil adalah investasi terbesar untuk masa depannya yang cerah!',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

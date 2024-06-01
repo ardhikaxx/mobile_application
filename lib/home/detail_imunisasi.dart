@@ -51,7 +51,7 @@ class DetailImunisasi extends StatelessWidget {
                 height: 65,
                 child: const Center(
                   child: Text(
-                    'Data Pertumbuhan dan Perkembangan Anak',
+                    'Riwayat Posyandu dan Imunisasi Anak',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

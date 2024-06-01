@@ -19,7 +19,7 @@ class ForgotPassword extends StatelessWidget {
         dialogType: DialogType.success,
         animType: AnimType.bottomSlide,
         title: 'Email Tersedia',
-        desc: 'Email Anda tersedia.',
+        desc: 'Email anda tersedia.',
       )..show().then((value) {
           Future.delayed(const Duration(seconds: 2), () {
             Navigator.of(context).pop();
@@ -34,11 +34,10 @@ class ForgotPassword extends StatelessWidget {
         dialogType: DialogType.error,
         animType: AnimType.bottomSlide,
         title: 'Email Tidak Tersedia',
-        desc: 'Email Anda tidak tersedia di database.',
+        desc: 'Email anda tidak tersedia atau belum didaftarkan.',
       )..show().then((value) {
           Future.delayed(const Duration(seconds: 2), () {
             Navigator.of(context).pop();
-            // Tambahkan navigasi ke halaman NewChangePassword di sini jika diperlukan
           });
         });
     }

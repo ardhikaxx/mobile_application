@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:posyandu_app/controller/auth_controller.dart';
 
 class ImunisasiController {
-  static String apiUrl = "http://192.168.18.50:8000";
+  static String apiUrl = "http://192.168.1.42:8000";
   static List imunisasiData = [];
 
   static void setApiUrl(String newUrl) {
