@@ -133,6 +133,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validateNIK = true;
                         });
                         return 'Nomor Kartu Keluarga harus terdiri dari 16 digit';
+                      } else {
+                        setState(() {
+                          _validateNIK = false;
+                        });
                       }
                       return null;
                     },
@@ -247,6 +251,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           _validateNIK = true;
                         });
                         return 'NIK harus terdiri dari 16 digit';
+                      } else {
+                        setState(() {
+                          _validateNIK = false;
+                        });
                       }
                       return null;
                     },
@@ -554,11 +562,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         });
                         return 'NIK Ayah tidak boleh kosong';
                       // ignore: unrelated_type_equality_checks
-                      } else if (value != 16) {
+                      } else if (value.length != 16) {
                         setState(() {
                           _validateNIK = true;
                         });
                         return 'NIK ayah harus terdiri dari 16 digit';
+                      } else {
+                        setState(() {
+                          _validateNIK = false;
+                        });
                       }
                       return null;
                     },
@@ -671,7 +683,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   TextFormField(
                     keyboardType: TextInputType.phone,
                     controller: teleponController,
-                    maxLength: 13,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
