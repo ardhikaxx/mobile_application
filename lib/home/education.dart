@@ -9,6 +9,7 @@ class Education extends StatefulWidget {
   const Education({super.key, required this.userData});
 
   @override
+  // ignore: library_private_types_in_public_api
   _EducationState createState() => _EducationState();
 }
 
@@ -96,7 +97,7 @@ class _EducationState extends State<Education> {
                     itemBuilder: (context, index) {
                       final artikel = ArtikelController.artikelData[index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Menambahkan jarak vertikal
                         child: CardArtikel(
                           judul: artikel.judul,
                           gambar: artikel.gambar,
