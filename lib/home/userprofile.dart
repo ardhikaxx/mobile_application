@@ -177,7 +177,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   const SizedBox(width: 15),
                   const Text(
-                    'Edit',
+                    'Edit Profile',
                     style: TextStyle(
                       color: Color(0xFF0F6ECD), // Text color
                       fontWeight: FontWeight.bold,

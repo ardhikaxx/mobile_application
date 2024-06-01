@@ -22,7 +22,7 @@ class DetailEducation extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Detail Artikel',
+          'Detail Edukasi',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,

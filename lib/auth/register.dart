@@ -190,7 +190,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         setState(() {
                           _validate = true;
                         });
-                        return 'Format Email Tidak Valid';
+                        return 'Format email tidak valid';
                       }
                       return null;
                     },
@@ -671,6 +671,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   TextFormField(
                     keyboardType: TextInputType.phone,
                     controller: teleponController,
+                    maxLength: 13,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),

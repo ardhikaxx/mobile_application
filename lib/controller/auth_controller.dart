@@ -8,7 +8,7 @@ import 'package:posyandu_app/auth/login.dart';
 import 'package:posyandu_app/model/user.dart';
 
 class ApiConfig {
-  static String apiUrl = "http://192.168.18.50:8000";
+  static String apiUrl = "http://192.168.1.42:8000";
 
   static void setApiUrl(String newUrl) {
     apiUrl = newUrl;
@@ -280,7 +280,7 @@ class AuthController {
               dialogType: DialogType.info,
               animType: AnimType.bottomSlide,
               title: 'Confirmation',
-              desc: 'Are you sure you want to proceed to the login page?',
+              desc: 'Apakan Anda Yakin Ingin Kembali Ke Halaman Login?',
               btnOkText: 'OK',
               btnOkOnPress: () {
                 Navigator.pushReplacement(
@@ -310,7 +310,7 @@ class AuthController {
         dialogType: DialogType.error,
         animType: AnimType.bottomSlide,
         title: 'Error',
-        desc: 'Failed to change password',
+        desc: 'Gagal memperbarui password',
       ).show();
     }
   }
@@ -322,7 +322,7 @@ void _showMessageDialog(BuildContext context, String data, UserData userData) {
     dialogType: DialogType.success,
     animType: AnimType.bottomSlide,
     title: 'Login Successful',
-    desc: 'Welcome, $data!',
+    desc: 'Selamat Datang, $data!',
   ).show();
 
   Future.delayed(const Duration(seconds: 2), () {

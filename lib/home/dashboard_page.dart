@@ -301,90 +301,90 @@ class _DashboardPageState extends State<DashboardPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 130,
-                    width: double.infinity,
-                    child: dataAnak.isNotEmpty
-                        ? PageView.builder(
-                            controller: _pageController,
-                            itemCount: dataAnak.length,
-                            onPageChanged: (index) {
-                              setState(() {
-                                activeCardIndex = index;
-                              });
-                            },
-                            itemBuilder: (context, index) {
-                              final anak = dataAnak[index];
-                              CrossAxisAlignment.start;
-                              MainAxisAlignment.center;
-                              return Card(
+                  Expanded(
+                    child: SizedBox(
+                      height: 130,
+                      width: double.infinity,
+                      child: dataAnak.isNotEmpty
+                          ? PageView.builder(
+                              controller: _pageController,
+                              itemCount: dataAnak.length,
+                              onPageChanged: (index) {
+                                setState(() {
+                                  activeCardIndex = index;
+                                });
+                              },
+                              itemBuilder: (context, index) {
+                                final anak = dataAnak[index];
+                                return Card(
+                                  color: Colors.white,
+                                  key: ValueKey(anak['id_anak']),
+                                  child: SizedBox(
+                                    width: 550,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            anak['nama_anak'],
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF00A5EC),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Anak ke: ${anak['anak_ke']}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Tinggi Badan: ${anak['posyandu'].last['tb_anak']} cm - Berat Badan: ${anak['posyandu'].last['bb_anak']} kg',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            )
+                          : SkeletonLoader(
+                              builder: Card(
                                 color: Colors.white,
-                                key: ValueKey(anak['id_anak']),
                                 child: SizedBox(
-                                  width: 550,
+                                  width: 150,
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          anak['nama_anak'],
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xFF00A5EC),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Anak ke: ${anak['anak_ke']}',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Tinggi Badan: ${anak['posyandu'].last['tb_anak']} cm - Berat Badan: ${anak['posyandu'].last['bb_anak']} kg',
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
+                                        Container(
+                                          width: 200,
+                                          height: 75,
+                                          color: Colors.grey[300],
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          )
-                        : SkeletonLoader(
-                            builder: Card(
-                              color: Colors.white,
-                              child: SizedBox(
-                                width: 150,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 200,
-                                        height: 75,
-                                        color: Colors.grey[300],
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
+                              items: 1,
+                              period: const Duration(seconds: 5),
+                              highlightColor: Colors.grey[300]!,
+                              baseColor: Colors.grey[100]!,
                             ),
-                            items: 1,
-                            period: const Duration(seconds: 5),
-                            highlightColor: Colors.grey[300]!,
-                            baseColor: Colors.grey[100]!,
-                          ),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -403,7 +403,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),

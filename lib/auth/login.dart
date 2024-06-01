@@ -217,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const Text(
-                          "Remember me",
+                          "Ingat Saya",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
