@@ -257,7 +257,7 @@ class _DashboardPageState extends State<DashboardPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
-              height: 210,
+              height: 250,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
@@ -303,7 +303,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   Expanded(
                     child: SizedBox(
-                      height: 130,
+                      height: 75,
                       width: double.infinity,
                       child: dataAnak.isNotEmpty
                           ? PageView.builder(
@@ -320,7 +320,8 @@ class _DashboardPageState extends State<DashboardPage> {
                                   color: Colors.white,
                                   key: ValueKey(anak['id_anak']),
                                   child: SizedBox(
-                                    width: 550,
+                                    width: double.infinity,
+                                    height: 75,
                                     child: Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Column(
@@ -370,7 +371,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 200,
+                                          width: double.infinity,
                                           height: 75,
                                           color: Colors.grey[300],
                                         ),
@@ -401,6 +402,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       );
                     }),
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
             )
