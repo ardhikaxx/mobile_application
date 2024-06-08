@@ -12,7 +12,7 @@ class Imunisasi extends StatefulWidget {
 }
 
 class _ImunisasiState extends State<Imunisasi> {
-  bool _isLoading = true; // Introduce loading state
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -20,15 +20,16 @@ class _ImunisasiState extends State<Imunisasi> {
     if (ImunisasiController.imunisasiData.isEmpty) {
       fetchDataImunisasi();
     } else {
-      _isLoading =
-          false; // Set loading state to false if data is already available
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
   Future<void> fetchDataImunisasi() async {
     await ImunisasiController.fetchDataImunisasi(context);
     setState(() {
-      _isLoading = false; // Set loading state to false after data is fetched
+      _isLoading = false;
     });
   }
 
@@ -67,30 +68,27 @@ class _ImunisasiState extends State<Imunisasi> {
           Expanded(
             child: _isLoading
                 ? SkeletonLoader(
-                    builder: ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                height: 20.0,
-                                color: Colors.grey[300],
-                              ),
-                              const SizedBox(height: 10),
-                              Container(
-                                width: double.infinity,
-                                height: 20.0,
-                                color: Colors.grey[300],
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                    builder: Column(
+                      children: List.generate(5, (index) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 20.0,
+                              color: Colors.grey[300],
+                            ),
+                            const SizedBox(height: 10),
+                            Container(
+                              width: double.infinity,
+                              height: 20.0,
+                              color: Colors.grey[300],
+                            ),
+                          ],
+                        ),
+                      )),
                     ),
                   )
                 : ImunisasiController.imunisasiData.isEmpty
@@ -104,17 +102,12 @@ class _ImunisasiState extends State<Imunisasi> {
                           ),
                         ),
                       )
-                    : ListView.builder(
-                        itemCount: ImunisasiController.imunisasiData.length,
-                        itemBuilder: (context, index) {
-                          final dataAnak =
-                              ImunisasiController.imunisasiData[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16.0),
-                            child: CardImunisasi(dataAnak: dataAnak),
-                          );
-                        },
+                    : ListView(
+                        children: ImunisasiController.imunisasiData.map((dataAnak) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 16.0),
+                          child: CardImunisasi(dataAnak: dataAnak),
+                        )).toList(),
                       ),
           ),
         ],

@@ -8,23 +8,16 @@ import 'package:posyandu_app/auth/login.dart';
 import 'package:posyandu_app/model/user.dart';
 
 class ApiConfig {
-  static String apiUrl = "http://192.168.18.50:8000";
+  static String apiUrl = "https://posyandubayibalita.com";
 
-  static void setApiUrl(String newUrl) {
+  void setApiUrl(String newUrl) {
     apiUrl = newUrl;
   }
 }
 
 class AuthController {
-  static late String _token;
-
-  static void setToken(String token) {
-    _token = token;
-  }
-
-  static String getToken() {
-    return _token;
-  }
+  static int? _noKk;
+  int? getNoKk() => _noKk;
 
   static Future<void> login(
       BuildContext context, String email, String password) async {
@@ -33,11 +26,11 @@ class AuthController {
       final response = await http.post(Uri.parse(apiUrl),
           body: {'email_orang_tua': email, 'password_orang_tua': password});
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
-        final token = jsonData['data']['token'] as String;
-        setToken(token);
+        final jsonData = jsonDecode(response.body);
+        UserData userData = UserData.fromJson(jsonData['data']['user']);
+        _noKk = userData.noKk;
         // ignore: use_build_context_synchronously
-        await tokenRequest(context, token);
+        _showMessageDialog(context, userData.namaIbu, userData);
       } else {
         // ignore: use_build_context_synchronously
         _showLoginErrorDialog(context);
@@ -49,76 +42,52 @@ class AuthController {
     }
   }
 
-  static Future<void> dataProfile(BuildContext context, String token) async {
-    try {
-      final responseData = await http.get(
-        Uri.parse("${ApiConfig.apiUrl}/api/auth/dataProfile"),
-        headers: {'Authorization': 'Bearer $token'},
-      );
-      if (responseData.statusCode == 200) {
-        final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
-        final userData =
-            UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
-        // ignore: use_build_context_synchronously
-        _showMessageDialog(context, userData.namaIbu, userData);
-      }
-    } catch (e) {
-      print('Error: $e');
+  static Future<UserData?> dataProfile(BuildContext context) async {
+  try {
+    final responseData = await http.get(
+      Uri.parse("${ApiConfig.apiUrl}/api/auth/dataProfile?no_kk=$_noKk"),
+    );
+    if (responseData.statusCode == 200) {
+      final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
+      final userData =
+          UserData.fromJson(jsonGet['user'] as Map<String, dynamic>);
+      return userData;
     }
+  } catch (e) {
+    print('Error: $e');
   }
+  return null;
+}
 
   static Future<bool> updateProfile(
   BuildContext context,
-  TextEditingController namaIbuController,
-  TextEditingController namaAyahController,
-  TextEditingController alamatController,
-  TextEditingController teleponController,
+  int noKk,
+  String namaIbu,
+  String namaAyah,
+  String alamat,
+  String telepon,
 ) async {
   try {
     final String apiUrl = "${ApiConfig.apiUrl}/api/auth/updateProfile";
     final response = await http.put(
       Uri.parse(apiUrl),
-      headers: {
-        'Authorization': 'Bearer ${AuthController.getToken()}',
-        'Content-Type': 'application/json',
+      body: {
+        'no_kk': noKk.toString(),
+        'nama_ibu': namaIbu,
+        'nama_ayah': namaAyah,
+        'alamat': alamat,
+        'telepon': telepon,
       },
-      body: jsonEncode({
-        'nama_ibu': namaIbuController.text,
-        'nama_ayah': namaAyahController.text,
-        'alamat': alamatController.text,
-        'telepon': teleponController.text,
-      }),
     );
     if (response.statusCode == 200) {
-      // Panggil metode untuk mendapatkan data profil terbaru setelah pembaruan
-      await dataProfile(context, AuthController.getToken());
       return true;
     } else {
-      // ignore: use_build_context_synchronously
-      showErrorUpdate(context);
       return false;
     }
   } catch (error) {
     print('Error Updating profile: $error');
-    // ignore: use_build_context_synchronously
-    showErrorUpdate(context);
     return false;
   }
-}
-
-  static void showSuccessUpdate(BuildContext context, UserData userData) {
-  AwesomeDialog(
-    context: context,
-    dialogType: DialogType.success,
-    animType: AnimType.bottomSlide,
-    title: 'Berhasil',
-    desc: 'Profile Berhasil di Edit!',
-    btnOkOnPress: () {
-      Future.delayed(const Duration(seconds: 2), () {
-        Get.to(() => NavigationButtom(userData: userData));
-      });
-    },
-  ).show();
 }
 
   static void showErrorUpdate(BuildContext context) {
@@ -127,44 +96,16 @@ class AuthController {
       dialogType: DialogType.error,
       animType: AnimType.bottomSlide,
       title: 'Gagal',
-      desc: 'Profile Gagal di Edit',
+      desc: 'Profil Gagal di Edit',
     ).show();
   }
 
-  static Future<void> tokenRequest(BuildContext context, String token) async {
-    try {
-      final responseData = await http.get(
-        Uri.parse("${ApiConfig.apiUrl}/api/auth/me"),
-        headers: {'Authorization': 'Bearer $token'},
-      );
-      if (responseData.statusCode == 200) {
-        final jsonGet = jsonDecode(responseData.body) as Map<String, dynamic>;
-        final userData =
-            UserData.fromJson(jsonGet['data'] as Map<String, dynamic>);
-        _showMessageDialog(context, userData.namaIbu, userData);
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
-
-  static Future<void> logout(BuildContext context, String token) async {
-    try {
-      final String apiUrl = "${ApiConfig.apiUrl}/api/auth/logout";
-      final response = await http.post(Uri.parse(apiUrl), headers: {
-        'Authorization': 'Bearer $_token',
-      });
-      if (response.statusCode == 200) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
-        );
-      } else {
-        print('Logout failed: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
+  Future<void> logout(BuildContext context) async {
+    _noKk = null;
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
   }
 
   static Future<void> register(
@@ -199,17 +140,21 @@ class AuthController {
         'password_orang_tua': password,
       });
       if (response.statusCode == 200 || response.statusCode == 201) {
+        // ignore: use_build_context_synchronously
         _showSuccessDialog(context);
         await Future.delayed(const Duration(seconds: 2));
         Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => LoginPage()),
         );
       } else {
+        // ignore: use_build_context_synchronously
         _showErrorDialog(context);
       }
     } catch (e) {
       print('Error: $e');
+      // ignore: use_build_context_synchronously
       _showErrorDialog(context);
     }
   }
@@ -268,6 +213,7 @@ class AuthController {
         final responseData = jsonDecode(response.body);
         final message = responseData['message'] as String;
         AwesomeDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           dialogType: DialogType.success,
           animType: AnimType.bottomSlide,
@@ -296,6 +242,7 @@ class AuthController {
         final message = responseData['message'] as String;
 
         AwesomeDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           dialogType: DialogType.error,
           animType: AnimType.bottomSlide,
@@ -306,6 +253,7 @@ class AuthController {
     } catch (e) {
       print('Error: $e');
       AwesomeDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.bottomSlide,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:posyandu_app/components/card_artikel.dart';
 import 'package:posyandu_app/controller/artikel_controller.dart';
-import 'package:posyandu_app/home/detail_education.dart';
+import 'package:posyandu_app/page/detail_education.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 
 class Education extends StatefulWidget {

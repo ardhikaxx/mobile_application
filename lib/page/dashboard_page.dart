@@ -5,6 +5,7 @@ import 'package:posyandu_app/controller/imunisasi_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
+import 'package:posyandu_app/controller/auth_controller.dart';
 
 class DashboardPage extends StatefulWidget {
   final UserData userData;
@@ -26,10 +27,23 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
+    _fetchUserData();
     userData = widget.userData;
     initializeDateFormatting('id_ID', null);
     _fetchJadwalPosyandu();
     _fetchDataAnak();
+  }
+
+  void _fetchUserData() {
+    AuthController.dataProfile(context).then((userData) {
+      if (userData != null) {
+        setState(() {
+          this.userData = userData;
+        });
+      }
+    }).catchError((error) {
+      print('Error fetching user data: $error');
+    });
   }
 
   Future<void> _fetchJadwalPosyandu() async {
@@ -40,7 +54,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
     while (!dataFetched) {
       try {
-        final data = await JadwalPosyanduController.fetchJadwalPosyandu(bulan, tahun);
+        final data =
+            await JadwalPosyanduController.fetchJadwalPosyandu(bulan, tahun);
         setState(() {
           jadwalPosyandu = data;
         });
@@ -137,7 +152,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                     child: Text(
-                      'Hai! ${widget.userData.namaIbu}',
+                      'Hai! ${userData.namaIbu}',
                       style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w500,
@@ -240,7 +255,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             Container(
                               width: 550,
                               height: 20,
-                              color: Colors.white,
+                              color: Colors.grey[300],
                             ),
                           ],
                         ),
@@ -294,56 +309,57 @@ class _DashboardPageState extends State<DashboardPage> {
                           'Data Anak',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20),
                   Expanded(
-                    child: SizedBox(
-                      height: 75,
-                      width: double.infinity,
-                      child: dataAnak.isNotEmpty
-                          ? PageView.builder(
-                              controller: _pageController,
-                              itemCount: dataAnak.length,
-                              onPageChanged: (index) {
-                                setState(() {
-                                  activeCardIndex = index;
-                                });
-                              },
-                              itemBuilder: (context, index) {
-                                final anak = dataAnak[index];
-                                return Card(
-                                  color: Colors.white,
-                                  key: ValueKey(anak['id_anak']),
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: 75,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            anak['nama_anak'],
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFF00A5EC),
-                                            ),
+                    child: dataAnak.isNotEmpty
+                        ? PageView.builder(
+                            controller: _pageController,
+                            onPageChanged: (index) {
+                              setState(() {
+                                activeCardIndex = index;
+                              });
+                            },
+                            itemCount: dataAnak.length,
+                            itemBuilder: (context, index) {
+                              final anak = dataAnak[index];
+                              return Card(
+                                color: Colors.white,
+                                key: ValueKey(anak['id_anak']),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 75,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          anak['nama_anak'],
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF00A5EC),
                                           ),
-                                          Text(
-                                            'Anak ke: ${anak['anak_ke']}',
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
+                                        ),
+                                        Text(
+                                          'Anak ke: ${anak['anak_ke']}',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
                                           ),
+                                        ),
+                                        if (anak['posyandu'].isNotEmpty)
                                           Text(
                                             'Tinggi Badan: ${anak['posyandu'].last['tb_anak']} cm - Berat Badan: ${anak['posyandu'].last['bb_anak']} kg',
                                             style: const TextStyle(
@@ -351,41 +367,33 @@ class _DashboardPageState extends State<DashboardPage> {
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                             ),
+                                          )
+                                        else
+                                          const Text(
+                                            'Data posyandu tidak tersedia',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red,
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            )
-                          : SkeletonLoader(
-                              builder: Card(
-                                color: Colors.white,
-                                child: SizedBox(
-                                  width: 150,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          height: 75,
-                                          color: Colors.grey[300],
-                                        ),
                                       ],
                                     ),
                                   ),
                                 ),
+                              );
+                            },
+                          )
+                        : const Center(
+                            child: Text(
+                              'Tidak ada data anak',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
-                              items: 1,
-                              period: const Duration(seconds: 5),
-                              highlightColor: Colors.grey[300]!,
-                              baseColor: Colors.grey[100]!,
                             ),
-                    ),
+                          ),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -397,15 +405,17 @@ class _DashboardPageState extends State<DashboardPage> {
                         margin: const EdgeInsets.symmetric(horizontal: 5.0),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: activeCardIndex == index ? Colors.white : Colors.grey,
+                          color: activeCardIndex == index
+                              ? Colors.white
+                              : Colors.grey,
                         ),
                       );
                     }),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

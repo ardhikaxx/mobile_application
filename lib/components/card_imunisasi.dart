@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:posyandu_app/home/detail_imunisasi.dart';
+import 'package:posyandu_app/page/detail_imunisasi.dart';
 
 class CardImunisasi extends StatelessWidget {
   final Map<String, dynamic> dataAnak;
@@ -101,9 +101,9 @@ class CardImunisasi extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF0F6ECD), 
+                backgroundColor: const Color(0xFF0F6ECD), 
                 foregroundColor: Colors.white, 
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),

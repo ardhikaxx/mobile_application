@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:posyandu_app/controller/auth_controller.dart';
 
 class ImunisasiController {
-  static String apiUrl = "http://192.168.18.50:8000";
+  static String apiUrl = "https://posyandubayibalita.com";
   static List imunisasiData = [];
 
   static void setApiUrl(String newUrl) {
@@ -13,25 +13,27 @@ class ImunisasiController {
 
   static Future<void> fetchDataImunisasi(BuildContext context) async {
     try {
-      final response = await http.get(
-        Uri.parse('$apiUrl/api/auth/dataImunisasi'),
-        headers: {'Authorization': 'Bearer ${AuthController.getToken()}'},
-      );
+      final noKk = AuthController().getNoKk();
+      if (noKk == null) {
+        throw Exception('No KK not found');
+      }
 
+      final response = await http.get(
+        Uri.parse('$apiUrl/api/auth/dataImunisasi?no_kk=$noKk'),
+      );
       if (response.statusCode == 200) {
-        final Map<String, dynamic> jsonData = jsonDecode(response.body);
-        
+        final jsonData = jsonDecode(response.body);
+        print(jsonData.toString());
         if (jsonData['data_anak'] != null && jsonData['data_anak'] is List) {
           imunisasiData = jsonData['data_anak'];
         } else {
           imunisasiData = [];
         }
       } else {
-        throw Exception('Gagal memuat data: ${response.statusCode}');
+        debugPrint('Gagal memuat data: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('Kesalahan mengambil data: $e');
-      throw Exception('Kesalahan mengambil data: $e');
     }
   }
 }

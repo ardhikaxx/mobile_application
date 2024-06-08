@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class ArtikelController {
-  static String apiUrl = 'http://192.168.18.50:8000';
+  static String apiUrl = 'https://posyandubayibalita.com';
   static List<Artikel> artikelData = [];
 
   Future<void> fetchArtikelData(BuildContext context) async {
@@ -19,10 +19,10 @@ class ArtikelController {
           return Artikel.fromJson(artikelJson);
         }).toList();
       } else {
-        throw Exception('Failed to fetch data');
+        print('Failed to fetch data');
       }
     } catch (e) {
-      throw Exception('Error fetching data: $e');
+      print('Error fetching data: $e');
     }
   }
 }

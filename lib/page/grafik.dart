@@ -12,17 +12,33 @@ class Grafik extends StatefulWidget {
 }
 
 class _GrafikState extends State<Grafik> {
+  bool _isLoading = true;
+  String? _errorMessage;
+
   @override
   void initState() {
     super.initState();
     if (GrafikController.posyanduData.isEmpty) {
       fetchPosyanduData();
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
   Future<void> fetchPosyanduData() async {
-    await GrafikController.fetchPosyanduData(context);
-    setState(() {});
+    try {
+      await GrafikController.fetchPosyanduData(context);
+    } catch (e) {
+      setState(() {
+        _errorMessage = e.toString();
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -58,26 +74,47 @@ class _GrafikState extends State<Grafik> {
           ),
           const SizedBox(height: 20),
           Expanded(
-            child: GrafikController.posyanduData.isEmpty
+            child: _isLoading
                 ? SkeletonLoader(
                     builder: const CardAnakSkeleton(),
-                    items: 3,
+                    items: 5,
                     period: const Duration(seconds: 2),
-                    highlightColor: Colors.grey[300]!,
-                    baseColor: Colors.grey[100]!,
+                    highlightColor: Colors.grey[100]!,
+                    baseColor: Colors.grey[300]!,
                   )
-                : ListView.builder(
-                    itemCount: GrafikController.posyanduData.length,
-                    itemBuilder: (context, index) {
-                      final dataAnak = GrafikController.posyanduData[index];
-                      MainAxisAlignment.center;
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: CardAnak(dataAnak: dataAnak),
-                      );
-                    },
-                  ),
+                : _errorMessage != null
+                    ? Center(
+                        child: Text(
+                          _errorMessage!,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      )
+                    : GrafikController.posyanduData.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'Tidak ada data anak',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: GrafikController.posyanduData.length,
+                            itemBuilder: (context, index) {
+                              final dataAnak = GrafikController.posyanduData[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 16.0),
+                                child: CardAnak(dataAnak: dataAnak),
+                              );
+                            },
+                          ),
           ),
         ],
       ),
@@ -107,7 +144,7 @@ class CardAnakSkeleton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
               ),
-              items: 2,
+              items: 1,
               period: const Duration(seconds: 2),
               highlightColor: Colors.grey[100]!,
               baseColor: Colors.grey[300]!,
@@ -122,7 +159,7 @@ class CardAnakSkeleton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
               ),
-              items: 2,
+              items: 1,
               period: const Duration(seconds: 2),
               highlightColor: Colors.grey[100]!,
               baseColor: Colors.grey[300]!,

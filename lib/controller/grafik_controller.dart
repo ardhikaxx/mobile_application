@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:posyandu_app/controller/auth_controller.dart';
 
 class GrafikController {
-  static String apiUrl = "http://192.168.18.50:8000";
+  static String apiUrl = "https://posyandubayibalita.com";
   static List posyanduData = [];
 
   static void setApiUrl(String newUrl) {
@@ -13,18 +13,23 @@ class GrafikController {
 
   static Future<void> fetchPosyanduData(BuildContext context) async {
     try {
+      final noKk = AuthController().getNoKk();
+      if (noKk == null) {
+        throw Exception('No KK not found');
+      }
+
       final responseData = await http.get(
-        Uri.parse("${GrafikController.apiUrl}/api/auth/dataGrafik"),
-        headers: {'Authorization': 'Bearer ${AuthController.getToken()}'},
+        Uri.parse("${GrafikController.apiUrl}/api/auth/dataGrafik?no_kk=$noKk"),
       );
+
       if (responseData.statusCode == 200) {
         final jsonData = jsonDecode(responseData.body) as Map<String, dynamic>;
         posyanduData = jsonData['data'];
       } else {
-        throw Exception('Failed to load data');
+        print('Failed to load data');
       }
     } catch (e) {
-      throw Exception('Error fetching data: $e');
+      print('Error fetching data: $e');
     }
   }
 }

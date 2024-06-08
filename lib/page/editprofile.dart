@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:posyandu_app/model/user.dart';
 import 'package:get/get.dart';
@@ -8,9 +7,9 @@ import 'package:posyandu_app/controller/auth_controller.dart';
 class EditProfile extends StatefulWidget {
   final UserData userData;
   final Function(UserData updatedUserData) onUpdate;
-  
-  const EditProfile({super.key, required this.userData, required this.onUpdate});
 
+  const EditProfile(
+      {super.key, required this.userData, required this.onUpdate});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -21,7 +20,6 @@ class _EditProfileState extends State<EditProfile> {
 
   bool _validateAlamat = false;
   bool _validateTelepon = false;
-  bool _validateNama = false;    
 
   late TextEditingController noKkController;
   late TextEditingController nikIbuController;
@@ -35,39 +33,43 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController teleponController;
   late TextEditingController emailController;
 
-  // ignore: unused_element
   UserData _getUpdatedUserData() {
     return UserData(
-      noKk: widget.userData.noKk,
-      nikIbu: widget.userData.nikIbu,
+      noKk: int.parse(noKkController.text),
+      nikIbu: nikIbuController.text,
       namaIbu: namaIbuController.text,
-      tempatLahirIbu: widget.userData.tempatLahirIbu,
-      tanggalLahirIbu: widget.userData.tanggalLahirIbu,
-      golDarahIbu: widget.userData.golDarahIbu,
-      nikAyah: widget.userData.nikAyah,
+      tempatLahirIbu: tempatLahirController.text,
+      tanggalLahirIbu: tanggalLahirController.text,
+      golDarahIbu: golDarahIbuController.text,
+      nikAyah: nikAyahController.text,
       namaAyah: namaAyahController.text,
       alamat: alamatController.text,
       telepon: teleponController.text,
-      emailOrangTua: widget.userData.emailOrangTua,
+      emailOrangTua: emailController.text,
       updatedAt: widget.userData.updatedAt,
-      createdAt: widget.userData.createdAt
+      createdAt: widget.userData.createdAt,
     );
   }
 
-@override
+  @override
   void initState() {
     super.initState();
-    noKkController = TextEditingController(text: widget.userData.noKk.toString());
+    noKkController =
+        TextEditingController(text: widget.userData.noKk.toString());
     nikIbuController = TextEditingController(text: widget.userData.nikIbu);
     namaIbuController = TextEditingController(text: widget.userData.namaIbu);
-    tempatLahirController = TextEditingController(text: widget.userData.tempatLahirIbu);
-    tanggalLahirController = TextEditingController(text: widget.userData.tanggalLahirIbu);
-    golDarahIbuController = TextEditingController(text: widget.userData.golDarahIbu);
+    tempatLahirController =
+        TextEditingController(text: widget.userData.tempatLahirIbu);
+    tanggalLahirController =
+        TextEditingController(text: widget.userData.tanggalLahirIbu);
+    golDarahIbuController =
+        TextEditingController(text: widget.userData.golDarahIbu);
     nikAyahController = TextEditingController(text: widget.userData.nikAyah);
     namaAyahController = TextEditingController(text: widget.userData.namaAyah);
     alamatController = TextEditingController(text: widget.userData.alamat);
     teleponController = TextEditingController(text: widget.userData.telepon);
-    emailController = TextEditingController(text: widget.userData.emailOrangTua);
+    emailController =
+        TextEditingController(text: widget.userData.emailOrangTua);
   }
 
   @override
@@ -135,18 +137,6 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
                       labelText: "Nomor Kartu Keluarga",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
@@ -174,18 +164,6 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
                       labelText: "NIK Ibu",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
@@ -212,18 +190,6 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
                       labelText: "Nama Ibu",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
@@ -233,119 +199,12 @@ class _EditProfileState extends State<EditProfile> {
                         fontSize: 14,
                         color: Colors.black.withOpacity(0.6),
                       ),
-                      errorText:
-                          _validateNama ? 'Nama tidak boleh kosong' : null,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        setState(() {
-                          _validateNama = true;
-                        });
-                        return 'Nama anda tidak boleh kosong';
-                      }
-                      return null;
-                    },
-                  ),
-                  
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: TextFormField(
-                            controller: tempatLahirController,
-                            enabled: false,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  color: Color(0xFF0F6ECD),
-                                  width: 1.5,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Color(0xFF0F6ECD)),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  color: Colors.red,
-                                  width: 1.5,
-                                ),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    color: Colors.red, width: 1.5),
-                              ),
-                              hintText: "Tempat Lahir",
-                              labelText: "Tempat Lahir",
-                              labelStyle: const TextStyle(
-                                color: Color(0xFF0F6ECD),
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: TextFormField(
-                            controller: tanggalLahirController,
-                            enabled: false,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  color: Color(0xFF0F6ECD),
-                                  width: 1.5,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Color(0xFF0F6ECD)),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  color: Colors.red,
-                                  width: 1.5,
-                                ),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    color: Colors.red, width: 1.5),
-                              ),
-                              hintText: "Tanggal Lahir",
-                              labelText: "Tanggal Lahir",
-                              labelStyle: const TextStyle(
-                                color: Color(0xFF0F6ECD),
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                   const SizedBox(height: 15),
                   TextFormField(
-                    controller: golDarahIbuController,
-                    enabled : false,
+                    controller: tempatLahirController,
+                    enabled: false,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -358,17 +217,59 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
+                      labelText: "Tempat Lahir",
+                      labelStyle: const TextStyle(
+                        color: Color(0xFF0F6ECD),
+                        fontSize: 16,
+                      ),
+                      hintStyle: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    controller: tanggalLahirController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Colors.red,
+                          color: Color(0xFF0F6ECD),
                           width: 1.5,
                         ),
                       ),
-                      focusedErrorBorder: OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
+                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                      ),
+                      labelText: "Tanggal Lahir",
+                      labelStyle: const TextStyle(
+                        color: Color(0xFF0F6ECD),
+                        fontSize: 16,
+                      ),
+                      hintStyle: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    controller: golDarahIbuController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF0F6ECD),
+                          width: 1.5,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
                       labelText: "Golongan Darah Ibu",
                       labelStyle: const TextStyle(
@@ -381,7 +282,6 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 15),
                   TextFormField(
                     controller: nikAyahController,
@@ -398,18 +298,6 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
                       labelText: "NIK Ayah",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
@@ -421,7 +309,6 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 15),
                   TextFormField(
                     controller: namaAyahController,
@@ -437,18 +324,6 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
                       labelText: "Nama Ayah",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
@@ -458,23 +333,13 @@ class _EditProfileState extends State<EditProfile> {
                         fontSize: 14,
                         color: Colors.black.withOpacity(0.6),
                       ),
-                      errorText:
-                          _validateNama ? 'Nama tidak boleh kosong' : null,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        setState(() {
-                          _validateNama = true;
-                        });
-                        return 'Nama anda tidak boleh kosong';
-                      }
-                      return null;
-                    },
                   ),
-
                   const SizedBox(height: 15),
                   TextFormField(
                     controller: alamatController,
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -487,19 +352,6 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
-                      hintText: "Masukkan alamat anda...",
                       labelText: "Alamat",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
@@ -512,21 +364,14 @@ class _EditProfileState extends State<EditProfile> {
                       errorText:
                           _validateAlamat ? 'Alamat tidak boleh kosong' : null,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        setState(() {
-                          _validateAlamat = true;
-                        });
-                        return 'Alamat tidak boleh kosong';
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(height: 15),
                   TextFormField(
-                    keyboardType: TextInputType.phone,
                     controller: teleponController,
+                    maxLength: 13,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
+                      counterText: "",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
@@ -538,20 +383,7 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
-                      hintText: "Masukkan nomor telepon anda...",
-                      labelText: "Telepon",
+                      labelText: "Nomor Telepon",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
                         fontSize: 16,
@@ -564,17 +396,7 @@ class _EditProfileState extends State<EditProfile> {
                           ? 'Nomor telepon tidak boleh kosong'
                           : null,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        setState(() {
-                          _validateTelepon = true;
-                        });
-                        return 'Nomor telepon tidak boleh kosong';
-                      }
-                      return null;
-                    },
                   ),
-
                   const SizedBox(height: 15),
                   TextFormField(
                     controller: emailController,
@@ -591,19 +413,7 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 1.5,
-                        ),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.5),
-                      ),
-                      labelText: "Email",
+                      labelText: "Email Orang Tua",
                       labelStyle: const TextStyle(
                         color: Color(0xFF0F6ECD),
                         fontSize: 16,
@@ -614,56 +424,77 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 32),
                   SizedBox(
                     width: double.infinity,
-                    height: 55,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
+                    height: 50,
+                    child: TextButton(
+                      onPressed: () async {
+                        setState(() {
+                          _validateAlamat = alamatController.text.isEmpty;
+                          _validateTelepon = teleponController.text.isEmpty;
+                        });
+                        if (_formKey.currentState!.validate()) {
+                          UserData updatedUserData = _getUpdatedUserData();
+                          bool isSuccess = await AuthController.updateProfile(
+                            context,
+                            updatedUserData.noKk,
+                            updatedUserData.namaIbu,
+                            updatedUserData.namaAyah,
+                            updatedUserData.alamat,
+                            updatedUserData.telepon,
+                          );
+                          if (isSuccess) {
+                            widget.onUpdate(updatedUserData);
+                            if (mounted) {
+                              // ignore: use_build_context_synchronously
+                              showSuccessUpdate(context, updatedUserData);
+                            }
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            AuthController.showErrorUpdate(
+                                // ignore: use_build_context_synchronously
+                                context); // Menampilkan pesan kesalahan saat pembaruan gagal
+                          }
+                        }
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
                         backgroundColor: const Color(0xFF0F6ECD),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          bool success = await AuthController.updateProfile(
-                            context,
-                            namaIbuController,
-                            namaAyahController,
-                            alamatController,
-                            teleponController,
-                          );
-                          if (success) {
-                            // ignore: use_build_context_synchronously
-                            await AuthController.dataProfile(context, AuthController.getToken());
-                            UserData updatedUserData = _getUpdatedUserData();
-                            // ignore: use_build_context_synchronously
-                            AuthController.showSuccessUpdate(context, updatedUserData);
-                          } else {
-                            // ignore: use_build_context_synchronously
-                            AuthController.showErrorUpdate(context);
-                          }
-                        }
-                      },
                       child: const Text(
-                        "SIMPAN",
+                        'Simpan',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 32),
                 ],
               ),
+            ),
           ),
         ),
       ),
-    ),
     );
   }
+}
+
+void showSuccessUpdate(BuildContext context, UserData userData) {
+  AwesomeDialog(
+    context: context,
+    dialogType: DialogType.success,
+    animType: AnimType.bottomSlide,
+    title: 'Berhasil',
+    desc: 'Profil Berhasil di Edit!',
+    btnOkOnPress: () {
+      Get.back();
+    },
+  ).show();
 }

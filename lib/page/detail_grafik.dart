@@ -81,7 +81,8 @@ class DetailGrafik extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  _buildBarChartCard('Berat Badan (kg)', beratBadanData, Colors.blue),
+                  _buildBarChartCard(
+                      'Berat Badan (kg)', beratBadanData, Colors.blue),
                   const SizedBox(height: 20),
                   const Text(
                     'Grafik Perkembangan Tinggi Badan Anak',
@@ -91,7 +92,8 @@ class DetailGrafik extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  _buildBarChartCard('Tinggi Badan (cm)', tinggiBadanData, Colors.green),
+                  _buildBarChartCard(
+                      'Tinggi Badan (cm)', tinggiBadanData, Colors.green),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -105,9 +107,10 @@ class DetailGrafik extends StatelessWidget {
   List<ChartSampleData> _createBeratBadanData(List<dynamic> data) {
     return data.asMap().entries.map<ChartSampleData>((entry) {
       final posyandu = entry.value;
+      double? bbAnak = double.tryParse(posyandu['bb_anak'].toString());
       return ChartSampleData(
         month: _getMonthName(posyandu['tanggal_posyandu']),
-        value: posyandu['bb_anak'].toDouble(),
+        value: bbAnak ?? 0.0, // Default to 0.0 if conversion fails
       );
     }).toList();
   }
@@ -115,14 +118,16 @@ class DetailGrafik extends StatelessWidget {
   List<ChartSampleData> _createTinggiBadanData(List<dynamic> data) {
     return data.asMap().entries.map<ChartSampleData>((entry) {
       final posyandu = entry.value;
+      double? tbAnak = double.tryParse(posyandu['tb_anak'].toString());
       return ChartSampleData(
         month: _getMonthName(posyandu['tanggal_posyandu']),
-        value: posyandu['tb_anak'].toDouble(),
+        value: tbAnak ?? 0.0, // Default to 0.0 if conversion fails
       );
     }).toList();
   }
 
-  Widget _buildBarChartCard(String title, List<ChartSampleData> data, Color color) {
+  Widget _buildBarChartCard(
+      String title, List<ChartSampleData> data, Color color) {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -165,8 +170,22 @@ class DetailGrafik extends StatelessWidget {
   }
 
   String _getMonthName(String date) {
-    final monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-    final monthNumber = int.parse(DateFormat('MM').format(DateFormat('yyyy-MM-dd').parse(date)));
+    final monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mei',
+      'Jun',
+      'Jul',
+      'Agu',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Des'
+    ];
+    final monthNumber = int.parse(
+        DateFormat('MM').format(DateFormat('yyyy-MM-dd').parse(date)));
     return monthNames[monthNumber - 1];
   }
 }

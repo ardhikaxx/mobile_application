@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:posyandu_app/home/dashboard_page.dart';
-import 'package:posyandu_app/home/userprofile.dart';
-import 'package:posyandu_app/home/education.dart';
-import 'package:posyandu_app/home/grafik.dart';
-import 'package:posyandu_app/home/imunisasi.dart';
+import 'package:posyandu_app/page/dashboard_page.dart';
+import 'package:posyandu_app/page/userprofile.dart';
+import 'package:posyandu_app/page/education.dart';
+import 'package:posyandu_app/page/grafik.dart';
+import 'package:posyandu_app/page/imunisasi.dart';
 import 'package:posyandu_app/model/user.dart';
 
 class NavigationButtom extends StatefulWidget {
@@ -21,9 +21,9 @@ class _NavigationButtomState extends State<NavigationButtom> {
 
   @override
   void initState() {
+    super.initState();
     userData = widget.userData;
     _pageController = PageController(initialPage: _selectedIndex);
-    super.initState();
   }
 
   @override
@@ -33,10 +33,12 @@ class _NavigationButtomState extends State<NavigationButtom> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      _pageController.jumpToPage(index);
-    });
+    if (index != _selectedIndex) {
+      setState(() {
+        _selectedIndex = index;
+        _pageController.jumpToPage(index);
+      });
+    }
   }
 
   @override
@@ -53,9 +55,11 @@ class _NavigationButtomState extends State<NavigationButtom> {
           Profile(userData: widget.userData),
         ],
         onPageChanged: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          if (index != _selectedIndex) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }
         },
       ),
       bottomNavigationBar: Container(
@@ -72,8 +76,8 @@ class _NavigationButtomState extends State<NavigationButtom> {
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
-          selectedItemColor: const Color(0xFF0F6ECD),
-          unselectedItemColor: const Color(0xFF0F6ECD),
+          selectedItemColor: Colors.white, // change this to white for better visibility
+          unselectedItemColor: const Color(0xFFB3D7FF), // lighter shade for unselected items
           showSelectedLabels: true,
           showUnselectedLabels: true,
         ),

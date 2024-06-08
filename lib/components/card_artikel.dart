@@ -67,13 +67,6 @@ class CardArtikel extends StatelessWidget {
     );
   }
 
-  Widget _content({required Color color}) {
-    return Text(
-      'Deskripsi singkat artikel',
-      style: TextStyle(color: color),
-    );
-  }
-
   Widget _tag(String text, Function onTap) {
     return GestureDetector(
       onTap: onTap as void Function()?,

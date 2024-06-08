@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:posyandu_app/controller/auth_controller.dart';
-import 'package:posyandu_app/home/editprofile.dart';
+import 'package:posyandu_app/auth/login.dart';
+import 'package:posyandu_app/page/editprofile.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:posyandu_app/controller/auth_controller.dart';
 import 'package:posyandu_app/model/user.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 class Profile extends StatefulWidget {
   final UserData userData;
@@ -15,14 +17,10 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   late UserData userData;
-  late String token;
-  late AuthController authController;
 
   @override
   void initState() {
     super.initState();
-    authController = Get.put(AuthController());
-    token = AuthController.getToken();
     userData = widget.userData;
   }
 
@@ -48,11 +46,42 @@ class _ProfileState extends State<Profile> {
         titleSpacing: 20,
         automaticallyImplyLeading: false,
       ),
-      body: _buildProfileBody(token),
+      body: _buildProfileBody(),
     );
   }
 
-  Widget _buildProfileBody(String token) {
+  Widget _buildProfileBody() {
+  return FutureBuilder<UserData?>(
+    future: AuthController.dataProfile(context),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return SkeletonLoader(
+          builder: Center(
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+          items: 1,
+          period: const Duration(seconds: 2),
+          highlightColor: Colors.grey[100]!,
+          direction: SkeletonDirection.ltr,
+        );
+      } else if (snapshot.hasError) {
+        return Center(child: Text('Error: ${snapshot.error}'));
+      } else if (snapshot.hasData && snapshot.data != null) {
+        userData = snapshot.data!;
+        return _buildProfile(userData);
+      } else {
+        return const Center(child: Text('No Data'));
+      }
+    },
+  );
+}
+  Widget _buildProfile(UserData userData) {
     return Padding(
       padding: EdgeInsets.zero,
       child: Column(
@@ -106,7 +135,7 @@ class _ProfileState extends State<Profile> {
                     ),
                     const SizedBox(height: 1),
                     Text(
-                      userData.nikIbu.toString(),
+                      userData.noKk.toString(),
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -122,7 +151,7 @@ class _ProfileState extends State<Profile> {
           const SizedBox(height: 50),
           _buildEditButton(),
           const SizedBox(height: 20),
-          _buildLogoutButton(token),
+          _buildLogoutButton(context),
         ],
       ),
     );
@@ -139,12 +168,10 @@ class _ProfileState extends State<Profile> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>EditProfile(
-                  userData: userData,
-                  onUpdate: _updateProfile
-                ),
-                ),
-                );
+                builder: (context) =>
+                    EditProfile(userData: userData, onUpdate: _updateProfile),
+              ),
+            );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFF3F8FE),
@@ -195,7 +222,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget _buildLogoutButton(String token) {
+  Widget _buildLogoutButton(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 35),
       child: SizedBox(
@@ -203,7 +230,7 @@ class _ProfileState extends State<Profile> {
         height: 55,
         child: ElevatedButton(
           onPressed: () {
-            _showLogoutConfirmation(token);
+            _showLogoutConfirmation(context);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFF3F8FE),
@@ -251,17 +278,16 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-
-  void _showLogoutConfirmation(String token) {
+    void _showLogoutConfirmation(BuildContext context) {
     AwesomeDialog(
-      context: Get.context!,
+      context: context,
       dialogType: DialogType.warning,
       animType: AnimType.topSlide,
-      title: 'Konfirmasi',
-      desc: 'Apakah Anda yakin ingin logout?',
+      title: 'Confirmation',
+      desc: 'Are you sure you want to logout?',
       btnCancelOnPress: () {},
       btnOkOnPress: () async {
-        await AuthController.logout(Get.context!, token);
+        Get.off(() => LoginPage());
       },
     ).show();
   }
