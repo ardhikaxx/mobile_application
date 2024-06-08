@@ -76,8 +76,8 @@ class _NavigationButtomState extends State<NavigationButtom> {
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
-          selectedItemColor: Colors.white, // change this to white for better visibility
-          unselectedItemColor: const Color(0xFFB3D7FF), // lighter shade for unselected items
+          selectedItemColor: const Color(0xFF0F6ECD),
+          unselectedItemColor: const Color(0xFF0F6ECD),
           showSelectedLabels: true,
           showUnselectedLabels: true,
         ),
