@@ -219,24 +219,14 @@ class AuthController {
           animType: AnimType.bottomSlide,
           title: 'Success',
           desc: message,
-        ).show().then((_) {
-          Future.delayed(const Duration(seconds: 2), () {
-            AwesomeDialog(
-              context: context,
-              dialogType: DialogType.info,
-              animType: AnimType.bottomSlide,
-              title: 'Confirmation',
-              desc: 'Apakan Anda Yakin Ingin Kembali Ke Halaman Login?',
-              btnOkText: 'OK',
-              btnOkOnPress: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-            ).show();
-          });
-        });
+          btnOkText: 'OK',
+          btnOkOnPress: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          },
+        ).show();
       } else {
         final responseData = jsonDecode(response.body);
         final message = responseData['message'] as String;
