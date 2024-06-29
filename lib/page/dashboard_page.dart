@@ -164,7 +164,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 25),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
@@ -249,12 +249,18 @@ class _DashboardPageState extends State<DashboardPage> {
                           );
                         })
                       else
-                        const Text('Tidak ada jadwal posyandu'),
+                        const Text('Tidak ada jadwal posyandu untuk bulan ini.',
+                        textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 25),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
@@ -302,7 +308,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 15),
                     Expanded(
                       child: dataAnak.isNotEmpty
                           ? CardSlider(
@@ -370,13 +376,13 @@ class _DashboardPageState extends State<DashboardPage> {
                                 'Tidak ada data anak',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List<Widget>.generate(dataAnak.length, (index) {
@@ -393,7 +399,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         );
                       }),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 15),
                   ],
                 ),
               ),
