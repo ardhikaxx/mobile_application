@@ -106,7 +106,7 @@ class _DashboardPageState extends State<DashboardPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(top: 50),
                 child: Image(
                   image: AssetImage('assets/logodashboard.png'),
                   width: 350,
@@ -164,7 +164,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 15),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
@@ -249,8 +249,9 @@ class _DashboardPageState extends State<DashboardPage> {
                           );
                         })
                       else
-                        const Text('Tidak ada jadwal posyandu untuk bulan ini.',
-                        textAlign: TextAlign.center,
+                        const Text(
+                          'Tidak ada jadwal posyandu untuk bulan ini.',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -260,30 +261,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 5),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
                 height: 250,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF00A5EC),
-                      Color(0xFF0F6ECD),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0.1,
-                      blurRadius: 5,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -293,14 +275,14 @@ class _DashboardPageState extends State<DashboardPage> {
                         children: [
                           Icon(
                             Icons.graphic_eq_rounded,
-                            color: Colors.white,
+                            color: Color(0xFF00A5EC),
                             size: 25,
                           ),
                           SizedBox(width: 10),
                           Text(
                             'Data Anak',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color(0xFF00A5EC),
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
                             ),
@@ -314,14 +296,14 @@ class _DashboardPageState extends State<DashboardPage> {
                           ? CardSlider(
                               cards: dataAnak.map<Widget>((anak) {
                                 return Card(
-                                  color: Colors.white,
+                                  color: const Color(0xFFBCE7F0),
                                   key: ValueKey(anak['id_anak']),
                                   margin:
                                       const EdgeInsets.symmetric(horizontal: 8),
                                   child: Container(
                                     width: double.infinity,
                                     height: 75,
-                                    padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(20),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -333,7 +315,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                           style: const TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
-                                            color: Color(0xFF00A5EC),
+                                            color: Colors.black,
                                           ),
                                         ),
                                         Text(
@@ -344,16 +326,24 @@ class _DashboardPageState extends State<DashboardPage> {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        if (anak['posyandu'].isNotEmpty)
+                                        if (anak['posyandu'].isNotEmpty) ...[
                                           Text(
-                                            'Tinggi Badan: ${anak['posyandu'].last['tb_anak']} cm - Berat Badan: ${anak['posyandu'].last['bb_anak']} kg',
+                                            'Tinggi Badan: ${anak['posyandu'].last['tb_anak']} cm',
                                             style: const TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                             ),
-                                          )
-                                        else
+                                          ),
+                                          Text(
+                                            'Berat Badan: ${anak['posyandu'].last['bb_anak']} kg',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ] else
                                           const Text(
                                             'Data posyandu tidak tersedia',
                                             style: TextStyle(
