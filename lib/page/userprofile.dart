@@ -33,8 +33,9 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0F6ECD),
+        backgroundColor: const Color(0xFF006BFA),
         title: const Text(
           'My Profile',
           style: TextStyle(
@@ -51,36 +52,37 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget _buildProfileBody() {
-  return FutureBuilder<UserData?>(
-    future: AuthController.dataProfile(context),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return SkeletonLoader(
-          builder: Center(
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
+    return FutureBuilder<UserData?>(
+      future: AuthController.dataProfile(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SkeletonLoader(
+            builder: Center(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
-          ),
-          items: 1,
-          period: const Duration(seconds: 2),
-          highlightColor: Colors.grey[100]!,
-          direction: SkeletonDirection.ltr,
-        );
-      } else if (snapshot.hasError) {
-        return Center(child: Text('Error: ${snapshot.error}'));
-      } else if (snapshot.hasData && snapshot.data != null) {
-        userData = snapshot.data!;
-        return _buildProfile(userData);
-      } else {
-        return const Center(child: Text('No Data'));
-      }
-    },
-  );
-}
+            items: 1,
+            period: const Duration(seconds: 2),
+            highlightColor: Colors.grey[100]!,
+            direction: SkeletonDirection.ltr,
+          );
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.hasData && snapshot.data != null) {
+          userData = snapshot.data!;
+          return _buildProfile(userData);
+        } else {
+          return const Center(child: Text('No Data'));
+        }
+      },
+    );
+  }
+
   Widget _buildProfile(UserData userData) {
     return Padding(
       padding: EdgeInsets.zero,
@@ -90,7 +92,7 @@ class _ProfileState extends State<Profile> {
           Container(
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color(0xFF0F6ECD),
+              color: Color(0xFF006BFA),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25),
@@ -108,10 +110,10 @@ class _ProfileState extends State<Profile> {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 15,
+                        offset: const Offset(0, 8),
                       ),
                     ],
                   ),
@@ -174,7 +176,7 @@ class _ProfileState extends State<Profile> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFF3F8FE),
+            backgroundColor: const Color(0xFF006BFA),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -186,27 +188,19 @@ class _ProfileState extends State<Profile> {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(13),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0F6ECD),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 0.1,
-                          blurRadius: 5,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
                     ),
                     child:
-                        const Icon(Icons.edit, color: Colors.white, size: 30),
+                        const Icon(Icons.edit, color: Color(0xFF006BFA), size: 30),
                   ),
                   const SizedBox(width: 15),
                   const Text(
                     'Edit Profile',
                     style: TextStyle(
-                      color: Color(0xFF0F6ECD), // Text color
+                      color: Colors.white, // Text color
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -214,7 +208,7 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
               const Icon(Icons.arrow_forward_ios,
-                  color: Color(0xFF0F6ECD), size: 25),
+                  color: Colors.white, size: 25),
             ],
           ),
         ),
@@ -233,7 +227,7 @@ class _ProfileState extends State<Profile> {
             _showLogoutConfirmation(context);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFF3F8FE),
+            backgroundColor: const Color(0xFF006BFA),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -245,27 +239,19 @@ class _ProfileState extends State<Profile> {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(13),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0F6ECD),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 0.1,
-                          blurRadius: 5,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
                     ),
                     child:
-                        const Icon(Icons.logout, color: Colors.white, size: 30),
+                        const Icon(Icons.logout, color: Color(0xFF006BFA), size: 30),
                   ),
                   const SizedBox(width: 15),
                   const Text(
                     'Logout',
                     style: TextStyle(
-                      color: Color(0xFF0F6ECD),
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -278,7 +264,8 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-    void _showLogoutConfirmation(BuildContext context) {
+
+  void _showLogoutConfirmation(BuildContext context) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.warning,

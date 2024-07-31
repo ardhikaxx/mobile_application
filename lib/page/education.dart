@@ -34,12 +34,14 @@ class _EducationState extends State<Education> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text(
           'Edukasi',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0F6ECD),
+            color: Color(0xFF006BFA),
             fontSize: 25,
           ),
         ),
@@ -76,6 +78,7 @@ class _EducationState extends State<Education> {
                         child: SkeletonLoader(
                           builder: Card(
                             child: Container(
+                              width: double.infinity,
                               height: 220,
                               decoration: BoxDecoration(
                                 color: Colors.grey[300],
@@ -101,6 +104,7 @@ class _EducationState extends State<Education> {
                         child: CardArtikel(
                           judul: artikel.judul,
                           gambar: artikel.gambar,
+                          index: index,
                           onTap: () {
                             Navigator.push(
                               context,

@@ -59,7 +59,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // ignore: prefer_const_constructors
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -77,7 +77,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                       ),
                     ),
                   ),
@@ -90,13 +90,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -113,7 +113,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan nomor kartu keluarga anda...",
                       labelText: "Nomor Kartu Keluarga",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -148,13 +148,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -171,7 +171,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan email anda...",
                       labelText: "Email",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -208,13 +208,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -231,7 +231,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan nik anda...",
                       labelText: "NIK",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -266,13 +266,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -289,7 +289,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan nama anda...",
                       labelText: "Nama",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -331,14 +331,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: const BorderSide(
-                                  color: Color(0xFF0F6ECD),
+                                  color: Color(0xFF006BFA),
                                   width: 1.5,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
-                                    const BorderSide(color: Color(0xFF0F6ECD)),
+                                    const BorderSide(color: Color(0xFF006BFA)),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -355,7 +355,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               hintText: "Tempat Lahir",
                               labelText: "Tempat Lahir",
                               labelStyle: const TextStyle(
-                                color: Color(0xFF0F6ECD),
+                                color: Color(0xFF006BFA),
                                 fontSize: 16,
                               ),
                               errorText: _validateTempatLahir
@@ -393,7 +393,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     data: ThemeData.light().copyWith(
                                       colorScheme: const ColorScheme.light(
                                         background: Colors.white,
-                                        primary: Color(0xFF0F6ECD),
+                                        primary: Color(0xFF006BFA),
                                       ),
                                       buttonTheme: const ButtonThemeData(
                                         textTheme: ButtonTextTheme.primary,
@@ -415,14 +415,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: const BorderSide(
-                                  color: Color(0xFF0F6ECD),
+                                  color: Color(0xFF006BFA),
                                   width: 1.5,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
-                                    const BorderSide(color: Color(0xFF0F6ECD)),
+                                    const BorderSide(color: Color(0xFF006BFA)),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -439,7 +439,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               hintText: "Tanggal Lahir",
                               labelText: "Tanggal Lahir",
                               labelStyle: const TextStyle(
-                                color: Color(0xFF0F6ECD),
+                                color: Color(0xFF006BFA),
                                 fontSize: 16,
                               ),
                               errorText: _validateTanggalLahir
@@ -474,13 +474,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -497,7 +497,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Pilih golongan darah",
                       labelText: "Golongan Darah",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -523,13 +523,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -546,7 +546,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan NIK Ayah...",
                       labelText: "NIK Ayah",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -584,13 +584,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -607,7 +607,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan nama Ayah...",
                       labelText: "Nama Ayah",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -636,13 +636,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -659,7 +659,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan alamat anda...",
                       labelText: "Alamat",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -687,13 +687,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -710,7 +710,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan nomor telepon anda...",
                       labelText: "Telepon",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -739,13 +739,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -762,7 +762,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       hintText: "Masukkan password anda...",
                       labelText: "Password",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -784,7 +784,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           isPasswordVisible
                               ? Icons.visibility
                               : Icons.visibility_off,
-                          color: const Color(0xFF0F6ECD),
+                          color: const Color(0xFF006BFA),
                         ),
                       ),
                     ),
@@ -809,7 +809,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 55,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF0F6ECD),
+                        backgroundColor: const Color(0xFF006BFA),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -849,7 +849,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           "Login",
                           style: TextStyle(
                             fontSize: 14,
-                            color: Color(0xFF0F6ECD),
+                            color: Color(0xFF006BFA),
                             fontWeight: FontWeight.bold,
                           ),
                         ),

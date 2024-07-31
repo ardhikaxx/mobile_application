@@ -20,6 +20,7 @@ class _NewChangePasswordState extends State<NewChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           'Ubah Kata Sandi Baru',
@@ -30,7 +31,7 @@ class _NewChangePasswordState extends State<NewChangePassword> {
           ),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFF0F6ECD),
+        backgroundColor: const Color(0xFF006BFA),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
@@ -71,7 +72,7 @@ class _NewChangePasswordState extends State<NewChangePassword> {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF0F6ECD)),
+                        color: Color(0xFF006BFA)),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -89,18 +90,18 @@ class _NewChangePasswordState extends State<NewChangePassword> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       hintText: "Masukkan password anda...",
                       labelText: "Password",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -121,7 +122,7 @@ class _NewChangePasswordState extends State<NewChangePassword> {
                             isPasswordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: const Color(0xFF0F6ECD),
+                            color: const Color(0xFF006BFA),
                           ),
                         ),
                       ),
@@ -142,18 +143,18 @@ class _NewChangePasswordState extends State<NewChangePassword> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       hintText: "Masukkan kembali password anda...",
                       labelText: "Konfirmasi Password",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -174,7 +175,7 @@ class _NewChangePasswordState extends State<NewChangePassword> {
                             isPasswordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: const Color(0xFF0F6ECD),
+                            color: const Color(0xFF006BFA),
                           ),
                         ),
                       ),
@@ -187,7 +188,7 @@ class _NewChangePasswordState extends State<NewChangePassword> {
                   height: 55,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0F6ECD),
+                      backgroundColor: const Color(0xFF006BFA),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

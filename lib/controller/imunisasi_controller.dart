@@ -23,7 +23,6 @@ class ImunisasiController {
       );
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
-        print(jsonData.toString());
         if (jsonData['data_anak'] != null && jsonData['data_anak'] is List) {
           imunisasiData = jsonData['data_anak'];
         } else {

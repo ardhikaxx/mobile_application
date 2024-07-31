@@ -44,12 +44,14 @@ class _GrafikState extends State<Grafik> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text(
           'Grafik',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0F6ECD),
+            color: Color(0xFF006BFA),
             fontSize: 25,
           ),
         ),
@@ -72,12 +74,11 @@ class _GrafikState extends State<Grafik> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
           Expanded(
             child: _isLoading
                 ? SkeletonLoader(
                     builder: const CardAnakSkeleton(),
-                    items: 5,
+                    items: 4,
                     period: const Duration(seconds: 2),
                     highlightColor: Colors.grey[100]!,
                     baseColor: Colors.grey[300]!,
@@ -102,12 +103,16 @@ class _GrafikState extends State<Grafik> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           )
                         : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const AlwaysScrollableScrollPhysics(),
                             itemCount: GrafikController.posyanduData.length,
                             itemBuilder: (context, index) {
-                              final dataAnak = GrafikController.posyanduData[index];
+                              final dataAnak =
+                                  GrafikController.posyanduData[index];
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 16.0),
@@ -138,7 +143,7 @@ class CardAnakSkeleton extends StatelessWidget {
             SkeletonLoader(
               builder: Container(
                 width: double.infinity,
-                height: 20,
+                height: 50,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(5.0),
@@ -153,7 +158,7 @@ class CardAnakSkeleton extends StatelessWidget {
             SkeletonLoader(
               builder: Container(
                 width: double.infinity,
-                height: 20,
+                height: 50,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(5.0),

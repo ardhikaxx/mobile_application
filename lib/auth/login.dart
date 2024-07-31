@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 15, 110, 205),
+                      color: Color(0xFF006BFA),
                     ),
                   ),
                 ),
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 15, 110, 205),
+                      color: Color(0xFF006BFA),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
-                              color: Color(0xFF0F6ECD),
+                              color: Color(0xFF006BFA),
                               width: 1.5,
                             ),
                           ),
@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Masukkan email anda...",
                           labelText: "Email",
                           labelStyle: const TextStyle(
-                            color: Color(0xFF0F6ECD),
+                            color: Color(0xFF006BFA),
                             fontSize: 16,
                           ),
                           hintStyle: TextStyle(
@@ -156,19 +156,19 @@ class _LoginPageState extends State<LoginPage> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
-                              color: Color(0xFF0F6ECD),
+                              color: Color(0xFF006BFA),
                               width: 1.5,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                const BorderSide(color: Color(0xFF0F6ECD)),
+                                const BorderSide(color: Color(0xFF006BFA)),
                           ),
                           hintText: "Masukkan password anda...",
                           labelText: "Password",
                           labelStyle: const TextStyle(
-                            color: Color(0xFF0F6ECD),
+                            color: Color(0xFF006BFA),
                             fontSize: 16,
                           ),
                           hintStyle: TextStyle(
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                               isPasswordVisible
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              color: const Color(0xFF0F6ECD),
+                              color: const Color(0xFF006BFA),
                             ),
                           ),
                         ),
@@ -209,19 +209,19 @@ class _LoginPageState extends State<LoginPage> {
                               _savePreferences();
                             });
                           },
-                          activeColor: const Color(0xFF0F6ECD),
+                          activeColor: const Color(0xFF006BFA),
                           checkColor: Colors.white,
                           side: const BorderSide(
-                            color: Color(0xFF0F6ECD),
+                            color: Color(0xFF006BFA),
                             width: 2.0,
                           ),
                         ),
                         const Text(
-                          "Ingat Saya",
+                          "Remember Me",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF0F6ECD),
+                            color: Color(0xFF006BFA),
                           ),
                         ),
                       ],
@@ -235,11 +235,11 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child: const Text(
-                        "Lupa Password?",
+                        "Forgot Password?",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                         ),
                       ),
                     )
@@ -251,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 55,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0F6ECD),
+                      backgroundColor: const Color(0xFF006BFA),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -307,7 +307,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF0F6ECD)),
+                            color: Color(0xFF006BFA)),
                       ),
                     ),
                   ],

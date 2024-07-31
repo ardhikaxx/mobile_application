@@ -9,13 +9,21 @@ class CardArtikel extends StatelessWidget {
   final String judul;
   final String gambar;
   final Function onTap;
+  final int index;
 
   const CardArtikel({
     super.key,
     required this.judul,
     required this.gambar,
     required this.onTap,
+    required this.index,
   });
+
+  static const List<Color> tagColors = [
+    Color(0xFFBCE7F0),
+    Color(0xFFCFE9BC),
+    Color(0xFFF9E284),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +81,16 @@ class CardArtikel extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: tagColors[index % tagColors.length],
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: Text(
           text,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black
+          ),
         ),
       ),
     );

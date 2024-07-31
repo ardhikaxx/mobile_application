@@ -36,12 +36,14 @@ class _ImunisasiState extends State<Imunisasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF3F4F9),
       appBar: AppBar(
+        backgroundColor: const Color(0xFFF3F4F9),
         title: const Text(
           'Imunisasi',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF0F6ECD),
+            color: Color(0xFF006BFA),
             fontSize: 25,
           ),
         ),
@@ -64,12 +66,12 @@ class _ImunisasiState extends State<Imunisasi> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 5),
           Expanded(
             child: _isLoading
                 ? SkeletonLoader(
                     builder: Column(
-                      children: List.generate(5, (index) => Padding(
+                      children: List.generate(2, (index) => Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
                         child: Column(
@@ -77,14 +79,20 @@ class _ImunisasiState extends State<Imunisasi> {
                           children: [
                             Container(
                               width: double.infinity,
-                              height: 20.0,
-                              color: Colors.grey[300],
+                              height: 125,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
                             ),
                             const SizedBox(height: 10),
                             Container(
                               width: double.infinity,
-                              height: 20.0,
-                              color: Colors.grey[300],
+                              height: 125,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
                             ),
                           ],
                         ),

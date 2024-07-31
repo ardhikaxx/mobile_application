@@ -9,6 +9,7 @@ class DetailImunisasi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF3F4F9),
       appBar: AppBar(
         title: const Text(
           'Detail Imunisasi',
@@ -18,7 +19,7 @@ class DetailImunisasi extends StatelessWidget {
             fontSize: 25,
           ),
         ),
-        backgroundColor: const Color(0xFF0F6ECD),
+        backgroundColor: const Color(0xFF006BFA),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
@@ -55,7 +56,7 @@ class DetailImunisasi extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF0F6ECD),
+                      color: Color(0xFF006BFA),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -73,7 +74,7 @@ class DetailImunisasi extends StatelessWidget {
                         return IntrinsicWidth(
                           child: DataTable(
                             columnSpacing: 8,
-                            headingRowColor: MaterialStateColor.resolveWith((states) => const Color(0xFF0F6ECD)),
+                            headingRowColor: MaterialStateColor.resolveWith((states) => const Color(0xFF006BFA)),
                             columns: <DataColumn>[
                               DataColumn(
                                 numeric: false,

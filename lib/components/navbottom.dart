@@ -64,7 +64,7 @@ class _NavigationButtomState extends State<NavigationButtom> {
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF0F6ECD),
+          color: Color(0xFF006BFA),
         ),
         child: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
@@ -76,8 +76,8 @@ class _NavigationButtomState extends State<NavigationButtom> {
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
-          selectedItemColor: const Color(0xFF0F6ECD),
-          unselectedItemColor: const Color(0xFF0F6ECD),
+          selectedItemColor: const Color(0xFF006BFA),
+          unselectedItemColor: const Color(0xFF006BFA),
           showSelectedLabels: true,
           showUnselectedLabels: true,
         ),
@@ -91,13 +91,13 @@ class _NavigationButtomState extends State<NavigationButtom> {
       icon: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: _selectedIndex == index ? const Color(0xFF0F6ECD) : Colors.transparent,
+          color: _selectedIndex == index ? const Color(0xFF006BFA) : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Icon(
           icon,
           size: 25,
-          color: _selectedIndex == index ? Colors.white : const Color(0xFF0F6ECD),
+          color: _selectedIndex == index ? Colors.white : const Color(0xFF006BFA),
         ),
       ),
       label: label,

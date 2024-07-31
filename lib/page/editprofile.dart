@@ -91,6 +91,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           'Edit Profile',
@@ -100,7 +101,7 @@ class _EditProfileState extends State<EditProfile> {
             fontSize: 25,
           ),
         ),
-        backgroundColor: const Color(0xFF0F6ECD),
+        backgroundColor: const Color(0xFF006BFA),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
@@ -129,17 +130,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Nomor Kartu Keluarga",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -156,17 +157,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "NIK Ibu",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -182,17 +183,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Nama Ibu",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -209,17 +210,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Tempat Lahir",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -236,17 +237,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Tanggal Lahir",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -263,17 +264,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Golongan Darah Ibu",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -290,17 +291,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "NIK Ayah",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -316,17 +317,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Nama Ayah",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -344,17 +345,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Alamat",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -375,17 +376,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Nomor Telepon",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -405,17 +406,17 @@ class _EditProfileState extends State<EditProfile> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(
-                          color: Color(0xFF0F6ECD),
+                          color: Color(0xFF006BFA),
                           width: 1.5,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Color(0xFF0F6ECD)),
+                        borderSide: const BorderSide(color: Color(0xFF006BFA)),
                       ),
                       labelText: "Email Orang Tua",
                       labelStyle: const TextStyle(
-                        color: Color(0xFF0F6ECD),
+                        color: Color(0xFF006BFA),
                         fontSize: 16,
                       ),
                       hintStyle: TextStyle(
@@ -460,7 +461,7 @@ class _EditProfileState extends State<EditProfile> {
                       },
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(8),
-                        backgroundColor: const Color(0xFF0F6ECD),
+                        backgroundColor: const Color(0xFF006BFA),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

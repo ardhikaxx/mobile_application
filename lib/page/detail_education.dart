@@ -20,6 +20,7 @@ class DetailEducation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF3F4F9),
       appBar: AppBar(
         title: const Text(
           'Detail Edukasi',
@@ -29,7 +30,7 @@ class DetailEducation extends StatelessWidget {
             fontSize: 25,
           ),
         ),
-        backgroundColor: const Color(0xFF0F6ECD),
+        backgroundColor: const Color(0xFF006BFA),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
