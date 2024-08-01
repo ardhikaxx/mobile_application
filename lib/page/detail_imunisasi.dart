@@ -37,16 +37,8 @@ class DetailImunisasi extends StatelessWidget {
             Center(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: const Color(0xFFBCE7F0),
                   borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0.1,
-                      blurRadius: 5,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
                 ),
                 width: double.infinity,
                 height: 65,
@@ -56,7 +48,7 @@ class DetailImunisasi extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF006BFA),
+                      color: Colors.black,
                     ),
                     textAlign: TextAlign.center,
                   ),

@@ -36,9 +36,9 @@ class _ImunisasiState extends State<Imunisasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F4F9),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF3F4F9),
+        backgroundColor: Colors.white,
         title: const Text(
           'Imunisasi',
           style: TextStyle(

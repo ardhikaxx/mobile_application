@@ -38,27 +38,25 @@ class DetailGrafik extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFF006BFA),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFBCE7F0),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                padding: const EdgeInsets.all(16),
+                width: double.infinity,
+                height: 65,
                 child: const Center(
                   child: Text(
                     'Grafik Pertumbuhan dan Perkembangan Anak',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -71,7 +69,6 @@ class DetailGrafik extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: ListView(
-                    padding: const EdgeInsets.all(16),
                     children: [
                       const Text(
                         'Grafik Perkembangan Berat Badan Anak',

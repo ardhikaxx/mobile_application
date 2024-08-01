@@ -13,10 +13,10 @@ class CardImunisasi extends StatelessWidget {
     Color iconColor;
 
     if (dataAnak['jenis_kelamin_anak'] == 'Laki-laki') {
-      backgroundColor = Colors.blue.shade200;
+      backgroundColor = Colors.blue.shade100;
       iconColor = Colors.blue.shade400;
     } else {
-      backgroundColor = Colors.pink.shade200;
+      backgroundColor = Colors.pink.shade100;
       iconColor = Colors.pink.shade400;
     }
 
@@ -68,9 +68,9 @@ class CardImunisasi extends StatelessWidget {
                 Text(
                   dataAnak['nama_anak'],
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 24,
                   ),
                 ),
               ],
@@ -79,72 +79,47 @@ class CardImunisasi extends StatelessWidget {
             Text(
               'NIK Anak : ${dataAnak['nik_anak']}',
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             Text(
               'Tempat Lahir Anak : ${dataAnak['tempat_lahir_anak']}',
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             Text('Tanggal Lahir Anak : ${dataAnak['tanggal_lahir_anak']}',
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 18,
                 )),
             Text(
               'Golongan Darah : ${dataAnak['gol_darah_anak']}',
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             Text(
               'Anak Ke : ${dataAnak['anak_ke']}',
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             Text(
               'Jenis Kelamin : ${dataAnak['jenis_kelamin_anak']}',
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailImunisasi(dataAnak: dataAnak),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: iconColor,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 12.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: const Text('Lihat Riwayat Posyandu', 
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+                fontSize: 18,
               ),
             ),
           ],

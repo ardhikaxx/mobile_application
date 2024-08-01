@@ -91,11 +91,11 @@ class _DashboardPageState extends State<DashboardPage> {
 
     if (currentValue > previousValue) {
       icon = FontAwesomeIcons.arrowTrendUp;
-      iconColor = Colors.green;
+      iconColor = Colors.green.shade400;
       backgroundColor = Colors.white;
     } else if (currentValue < previousValue) {
       icon = FontAwesomeIcons.arrowTrendDown;
-      iconColor = Colors.red;
+      iconColor = Colors.red.shade400;
       backgroundColor = Colors.white;
     } else {
       icon = FontAwesomeIcons.minus;
@@ -150,19 +150,19 @@ class _DashboardPageState extends State<DashboardPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 65),
+              padding: EdgeInsets.only(top: 60),
               child: Image(
                 image: AssetImage('assets/logodashboard.png'),
                 width: 350,
                 height: 150,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: const Color(0xFFF9E284), // Background color
+                color: const Color(0xFF006BFA),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
@@ -191,15 +191,15 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Selamat Datang!',
+                          'Hello,',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 24,
                             fontWeight: FontWeight.w500,
                             color: Colors.black,
                           ),
                         ),
                         Text(
-                          'Hai, ${userData.namaIbu}',
+                          userData.namaIbu,
                           style: const TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
@@ -212,19 +212,19 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: const Color(0xFFCFE9BC),
+                color: const Color(0xFF006BFA),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     Row(
                       children: [
                         Container(
@@ -252,6 +252,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
                     if (jadwalPosyandu.isNotEmpty)
                       ...jadwalPosyandu.map((jadwal) {
                         return Padding(
@@ -291,20 +292,22 @@ class _DashboardPageState extends State<DashboardPage> {
                         );
                       }).toList()
                     else
-                      const Text(
-                        'Tidak ada jadwal posyandu untuk bulan ini.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                          fontSize: 16,
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          'Tidak ada jadwal posyandu untuk bulan ini.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 5),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
@@ -319,7 +322,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         Text(
                           'Data Anak',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Color(0xFF006BFA),
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -367,13 +370,13 @@ class _DashboardPageState extends State<DashboardPage> {
                                   : 0;
 
                               return Card(
-                                color: const Color(0xFFBCE7F0),
+                                color: const Color(0xFF006BFA),
                                 key: ValueKey(anak['id_anak']),
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 8),
                                 child: Container(
                                   width: double.infinity,
-                                  height: 250,
+                                  height: 350,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
@@ -396,7 +399,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                             child: const Center(
                                               child: Icon(
                                                 FontAwesomeIcons.heartPulse,
-                                                color: Color(0xFF00A1E4),
+                                                color: Color(0xFF006BFA),
                                                 size: 25,
                                               ),
                                             ),
@@ -407,18 +410,18 @@ class _DashboardPageState extends State<DashboardPage> {
                                             style: const TextStyle(
                                               fontSize: 22,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              color: Colors.white,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 5),
+                                      const SizedBox(height: 6),
                                       Text(
                                         'Anak ke: ${anak['anak_ke']}',
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                         ),
                                       ),
                                       if (posyanduData.isNotEmpty) ...[
@@ -429,7 +432,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                color: Colors.black,
+                                                color: Colors.white,
                                               ),
                                             ),
                                             const SizedBox(width: 15),
@@ -447,7 +450,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                color: Colors.black,
+                                                color: Colors.white,
                                               ),
                                             ),
                                             const SizedBox(width: 15),
@@ -463,7 +466,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.red,
+                                            color: Colors.white,
                                           ),
                                         ),
                                     ],
@@ -472,7 +475,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               );
                             },
                             itemWidth: MediaQuery.of(context).size.width * 0.9,
-                            itemHeight: 250,
+                            itemHeight: 350,
                             layout: SwiperLayout.STACK,
                           )
                         : const Center(
@@ -485,7 +488,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               ),
                             ),
                           ),
-                  )
+                  ),
                 ],
               ),
             ),

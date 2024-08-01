@@ -15,7 +15,7 @@ class CardAnak extends StatelessWidget {
 
     if (dataAnak['jenis_kelamin_anak'] == 'Laki-laki') {
       genderIcon = FontAwesomeIcons.person;
-      backgroundColor = Colors.blue.shade200;
+      backgroundColor = Colors.blue.shade300;
       iconColor = Colors.blue.shade400;
     } else {
       genderIcon = FontAwesomeIcons.personDress;
@@ -43,7 +43,7 @@ class CardAnak extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         width: 300,
-        height: 150,
+        height: 130,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
@@ -74,23 +74,25 @@ class CardAnak extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 24,
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 3),
                   Text(
                     dataAnak['jenis_kelamin_anak'],
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 3),
                   Text(
                     '$latestAge bulan',
                     style: const TextStyle(
+                      fontWeight: FontWeight.w600,
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 18,
                     ),
                   ),
                 ],
@@ -99,6 +101,7 @@ class CardAnak extends StatelessWidget {
               const Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
+                size: 35,
               ),
             ],
           ),
