@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:posyandu_app/page/dashboard_page.dart';
 import 'package:posyandu_app/page/userprofile.dart';
 import 'package:posyandu_app/page/education.dart';
@@ -68,11 +69,11 @@ class _NavigationButtomState extends State<NavigationButtom> {
         ),
         child: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
-            _buildNavBarItem(Icons.home, "Home", 0),
-            _buildNavBarItem(Icons.article, "Edukasi", 1),
-            _buildNavBarItem(Icons.insert_chart, "Grafik", 2),
-            _buildNavBarItem(Icons.medical_services, "Imunisasi", 3),
-            _buildNavBarItem(Icons.person_2_rounded, "Profile", 4),
+            _buildNavBarItem(FontAwesomeIcons.house, "Home", 0),
+            _buildNavBarItem(Icons.newspaper, "Edukasi", 1),
+            _buildNavBarItem(FontAwesomeIcons.chartColumn, "Grafik", 2),
+            _buildNavBarItem(FontAwesomeIcons.notesMedical, "Imunisasi", 3),
+            _buildNavBarItem(Icons.person_sharp, "Profile", 4),
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
@@ -88,15 +89,16 @@ class _NavigationButtomState extends State<NavigationButtom> {
   BottomNavigationBarItem _buildNavBarItem(
       IconData icon, String label, int index) {
     return BottomNavigationBarItem(
-      icon: Container(
-        padding: const EdgeInsets.all(10),
+      icon: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: EdgeInsets.all(_selectedIndex == index ? 12 : 8),
         decoration: BoxDecoration(
           color: _selectedIndex == index ? const Color(0xFF006BFA) : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Icon(
           icon,
-          size: 25,
+          size: 24,
           color: _selectedIndex == index ? Colors.white : const Color(0xFF006BFA),
         ),
       ),

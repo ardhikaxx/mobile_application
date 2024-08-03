@@ -7,6 +7,7 @@ import 'package:posyandu_app/controller/imunisasi_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:posyandu_app/controller/auth_controller.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 class DashboardPage extends StatefulWidget {
   final UserData userData;
@@ -20,6 +21,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   late UserData userData;
+  bool _isLoading = true;
   List<dynamic> jadwalPosyandu = [];
   List<dynamic> dataAnak = [];
   final PageController _pageController = PageController(viewportFraction: 0.8);
@@ -52,12 +54,17 @@ class _DashboardPageState extends State<DashboardPage> {
     final tahun = now.year;
     bool dataFetched = false;
 
+    setState(() {
+      _isLoading = true;
+    });
+
     while (!dataFetched) {
       try {
         final data =
             await JadwalPosyanduController.fetchJadwalPosyandu(bulan, tahun);
         setState(() {
           jadwalPosyandu = data;
+          _isLoading = false;
         });
         dataFetched = true;
       } catch (e) {
@@ -143,88 +150,313 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 60),
-              child: Image(
-                image: AssetImage('assets/logodashboard.png'),
-                width: 350,
-                height: 150,
+      backgroundColor: const Color(0xFFF6F6F6),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Image(
+                  image: AssetImage('assets/logodashboard.png'),
+                  width: 350,
+                  height: 150,
+                ),
               ),
-            ),
-            const SizedBox(height: 5),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: const Color(0xFF006BFA),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 65,
-                      height: 65,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          FontAwesomeIcons.personBreastfeeding,
-                          color: Color(0xFFFFD700),
-                          size: 36,
-                        ),
-                      ),
+              const SizedBox(height: 5),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
                     ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Hello,',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(
-                          userData.namaIbu,
-                          style: const TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.7),
+                      spreadRadius: -2,
+                      blurRadius: 20,
+                      offset: const Offset(0, -2),
                     ),
                   ],
                 ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 65,
+                        height: 65,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF006BFA),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            FontAwesomeIcons.personBreastfeeding,
+                            color: Colors.white,
+                            size: 36,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Hello,',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF006BFA),
+                            ),
+                          ),
+                          Text(
+                            userData.namaIbu,
+                            style: const TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: const Color(0xFF006BFA),
-                borderRadius: BorderRadius.circular(20),
+              const SizedBox(height: 20),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.7),
+                      spreadRadius: -2,
+                      blurRadius: 20,
+                      offset: const Offset(0, -2),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF006BFA),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.calendar_month,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          const Text(
+                            'Jadwal Posyandu',
+                            style: TextStyle(
+                              color: Color(0xFF006BFA),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      _isLoading
+                          ? SkeletonLoader(
+                              builder: Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(1, (index) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          color: Colors.grey[300],
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Container(
+                                          height: 20,
+                                          color: Colors.grey[300],
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ),
+                              ),
+                              items: 1,
+                              period: const Duration(milliseconds: 1200),
+                              highlightColor: Colors.grey[100]!,
+                              baseColor: Colors.grey[300]!,
+                            )
+                          : jadwalPosyandu.isNotEmpty
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: jadwalPosyandu.map((jadwal) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            _formatDate(
+                                                jadwal['jadwal_posyandu']!),
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Jam Buka: ${jadwal['jadwal_buka']}',
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Text(
+                                                'Jam Tutup: ${jadwal['jadwal_tutup']}',
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                )
+                              : const Padding(
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Text(
+                                    'Tidak ada jadwal posyandu untuk bulan ini.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                    ],
+                  ),
+                ),
               ),
-              child: Padding(
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                height: 280,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Data Anak',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Expanded(
+  child: dataAnak.isNotEmpty
+      ? Swiper(
+          itemCount: dataAnak.length,
+          itemBuilder: (BuildContext context, int index) {
+            var anak = dataAnak[index];
+            var posyanduData = anak['posyandu'] ?? [];
+            
+            // Menentukan warna latar belakang dan ikon berdasarkan jenis kelamin
+            Color backgroundColor;
+            Color iconColor;
+            if (anak['jenis_kelamin_anak'] == 'Laki-laki') {
+              backgroundColor = Colors.blue.shade300;
+              iconColor = Colors.blue.shade400;
+            } else {
+              backgroundColor = Colors.pink.shade200;
+              iconColor = Colors.pink.shade300;
+            }
+
+            double previousHeight = posyanduData.length > 1
+                ? parseStringToDouble(
+                    posyanduData[posyanduData.length - 2]['tb_anak'] ?? '0')
+                : (posyanduData.isNotEmpty
+                    ? parseStringToDouble(
+                        posyanduData.last['tb_anak'] ?? '0')
+                    : 0);
+            double currentHeight = posyanduData.isNotEmpty
+                ? parseStringToDouble(posyanduData.last['tb_anak'] ?? '0')
+                : 0;
+
+            double previousWeight = posyanduData.length > 1
+                ? parseStringToDouble(
+                    posyanduData[posyanduData.length - 2]['bb_anak'] ?? '0')
+                : (posyanduData.isNotEmpty
+                    ? parseStringToDouble(
+                        posyanduData.last['bb_anak'] ?? '0')
+                    : 0);
+            double currentWeight = posyanduData.isNotEmpty
+                ? parseStringToDouble(posyanduData.last['bb_anak'] ?? '0')
+                : 0;
+
+            return Card(
+              color: backgroundColor,
+              key: ValueKey(anak['nik_anak']),
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              child: Container(
+                width: double.infinity,
+                height: 350,
                 padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Row(
                       children: [
                         Container(
@@ -235,265 +467,162 @@ class _DashboardPageState extends State<DashboardPage> {
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(
-                            Icons.calendar_month,
-                            color: Color(0xFF7BBF6A),
-                            size: 25,
+                          child: Center(
+                            child: Icon(
+                              FontAwesomeIcons.heartPulse,
+                              color: iconColor,
+                              size: 25,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 10),
-                        const Text(
-                          'Jadwal Posyandu',
-                          style: TextStyle(
-                            color: Colors.black,
+                        Text(
+                          anak['nama_anak'],
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5),
-                    if (jadwalPosyandu.isNotEmpty)
-                      ...jadwalPosyandu.map((jadwal) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _formatDate(jadwal['jadwal_posyandu']),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Jam Buka: ${jadwal['jadwal_buka']}',
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'Jam Tutup: ${jadwal['jadwal_tutup']}',
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                    const SizedBox(height: 6),
+                    Text(
+                      'Anak ke: ${anak['anak_ke']}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    if (posyanduData.isNotEmpty) ...[
+                      Row(
+                        children: [
+                          Text(
+                            'Tinggi Badan: $currentHeight cm',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
                           ),
-                        );
-                      }).toList()
-                    else
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Tidak ada jadwal posyandu untuk bulan ini.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                            fontSize: 16,
+                          const SizedBox(width: 15),
+                          _buildArrowIconWithBackground(
+                            previousHeight,
+                            currentHeight,
                           ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Text(
+                            'Berat Badan: $currentWeight kg',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          _buildArrowIconWithBackground(
+                            previousWeight,
+                            currentWeight,
+                          ),
+                        ],
+                      ),
+                    ] else
+                      const Text(
+                        'Data posyandu tidak tersedia',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                   ],
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
+            );
+          },
+          itemWidth: MediaQuery.of(context).size.width * 0.9,
+          itemHeight: 350,
+          layout: SwiperLayout.STACK,
+        )
+      : SkeletonLoader(
+          builder: Card(
+            color: Colors.grey[300], 
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: Container(
               width: double.infinity,
-              height: 250,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Data Anak',
-                          style: TextStyle(
-                            color: Color(0xFF006BFA),
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                  Row(
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            FontAwesomeIcons.heartPulse,
+                            color: Colors.white,
+                            size: 25,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100,
+                        height: 20,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 15),
-                  Expanded(
-                    child: dataAnak.isNotEmpty
-                        ? Swiper(
-                            itemCount: dataAnak.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              var anak = dataAnak[index];
-                              var posyanduData = anak['posyandu'] ??
-                                  []; // Menangani jika 'posyandu' null
-
-                              // Menetapkan nilai default jika posyanduData kosong
-                              double previousHeight = posyanduData.length > 1
-                                  ? parseStringToDouble(
-                                      posyanduData[posyanduData.length - 2]
-                                              ['tb_anak'] ??
-                                          '0')
-                                  : (posyanduData.isNotEmpty
-                                      ? parseStringToDouble(
-                                          posyanduData.last['tb_anak'] ?? '0')
-                                      : 0);
-                              double currentHeight = posyanduData.isNotEmpty
-                                  ? parseStringToDouble(
-                                      posyanduData.last['tb_anak'] ?? '0')
-                                  : 0;
-
-                              double previousWeight = posyanduData.length > 1
-                                  ? parseStringToDouble(
-                                      posyanduData[posyanduData.length - 2]
-                                              ['bb_anak'] ??
-                                          '0')
-                                  : (posyanduData.isNotEmpty
-                                      ? parseStringToDouble(
-                                          posyanduData.last['bb_anak'] ?? '0')
-                                      : 0);
-                              double currentWeight = posyanduData.isNotEmpty
-                                  ? parseStringToDouble(
-                                      posyanduData.last['bb_anak'] ?? '0')
-                                  : 0;
-
-                              return Card(
-                                color: const Color(0xFF006BFA),
-                                key: ValueKey(anak['id_anak']),
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 350,
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: 50,
-                                            height: 50,
-                                            padding: const EdgeInsets.all(10),
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Center(
-                                              child: Icon(
-                                                FontAwesomeIcons.heartPulse,
-                                                color: Color(0xFF006BFA),
-                                                size: 25,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 10),
-                                          Text(
-                                            anak['nama_anak'],
-                                            style: const TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 6),
-                                      Text(
-                                        'Anak ke: ${anak['anak_ke']}',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      if (posyanduData.isNotEmpty) ...[
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Tinggi Badan: $currentHeight cm',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 15),
-                                            _buildArrowIconWithBackground(
-                                              previousHeight,
-                                              currentHeight,
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Berat Badan: $currentWeight kg',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 15),
-                                            _buildArrowIconWithBackground(
-                                              previousWeight,
-                                              currentWeight,
-                                            ),
-                                          ],
-                                        ),
-                                      ] else
-                                        const Text(
-                                          'Data posyandu tidak tersedia',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                            itemWidth: MediaQuery.of(context).size.width * 0.9,
-                            itemHeight: 350,
-                            layout: SwiperLayout.STACK,
-                          )
-                        : const Center(
-                            child: Text(
-                              'Tidak ada data anak',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
+                  const SizedBox(height: 6),
+                  Container(
+                    width: 150,
+                    height: 20,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: double.infinity,
+                    height: 20,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: double.infinity,
+                    height: 20,
+                    color: Colors.white,
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 15),
-          ],
+          ),
+          items: 1,
+          period: const Duration(seconds: 2),
+          highlightColor: Colors.grey[200]!,
+          direction: SkeletonDirection.ltr,
+        ),
+)
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
+            ],
+          ),
         ),
       ),
     );

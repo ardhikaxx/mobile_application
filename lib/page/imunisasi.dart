@@ -36,9 +36,9 @@ class _ImunisasiState extends State<Imunisasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF6F6F6),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF6F6F6),
         title: const Text(
           'Imunisasi',
           style: TextStyle(
@@ -111,7 +111,7 @@ class _ImunisasiState extends State<Imunisasi> {
                         ),
                       )
                     : ListView(
-                        children: ImunisasiController.imunisasiData.map((dataAnak) => Padding(
+                        children: ImunisasiController.imunisasiData.reversed.map((dataAnak) => Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
                           child: CardImunisasi(dataAnak: dataAnak),

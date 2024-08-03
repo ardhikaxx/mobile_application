@@ -44,9 +44,9 @@ class _GrafikState extends State<Grafik> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF6F6F6),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF6F6F6),
         title: const Text(
           'Grafik',
           style: TextStyle(
@@ -111,8 +111,11 @@ class _GrafikState extends State<Grafik> {
                             physics: const AlwaysScrollableScrollPhysics(),
                             itemCount: GrafikController.posyanduData.length,
                             itemBuilder: (context, index) {
-                              final dataAnak =
-                                  GrafikController.posyanduData[index];
+                              final dataAnak = GrafikController
+                                  .posyanduData[
+                                      GrafikController.posyanduData.length -
+                                          1 -
+                                          index]; // Membalik urutan data
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 16.0),

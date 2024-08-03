@@ -9,7 +9,7 @@ class DetailImunisasi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F4F9),
+      backgroundColor: const Color(0xFFF6F6F6),
       appBar: AppBar(
         title: const Text(
           'Detail Imunisasi',
@@ -37,8 +37,22 @@ class DetailImunisasi extends StatelessWidget {
             Center(
               child: Container(
                 decoration: BoxDecoration(
-                  color: const Color(0xFFBCE7F0),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.7),
+                      spreadRadius: -2,
+                      blurRadius: 20,
+                      offset: const Offset(0, -2),
+                    ),
+                  ],
                 ),
                 width: double.infinity,
                 height: 65,
@@ -60,164 +74,83 @@ class DetailImunisasi extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
-                  children: [
-                    LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
-                        return IntrinsicWidth(
-                          child: DataTable(
-                            columnSpacing: 8,
-                            headingRowColor: MaterialStateColor.resolveWith((states) => const Color(0xFF006BFA)),
-                            columns: <DataColumn>[
-                              DataColumn(
-                                numeric: false,
-                                label: Container(
-                                  width: 70,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'Tanggal',
-                                    textAlign: TextAlign.center,
-                                    maxLines: 3,
-                                    softWrap: true,
-                                    overflow: TextOverflow.visible,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                  children: dataAnak['posyandu'].map<Widget>((posyanduData) {
+                    return Card(
+                      color: const Color(0xFF006BFA),
+                      elevation: 3,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      shadowColor: Colors.blueGrey.shade200,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                'Tanggal Posyandu: ${posyanduData['tanggal_posyandu']}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
                                 ),
                               ),
-                              DataColumn(
-                                numeric: false,
-                                label: Container(
-                                  width: 50,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'TB',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                numeric: false,
-                                label: Container(
-                                  width: 50,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'BB',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                numeric: false,
-                                label: Container(
-                                  width: 52,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'Umur',
-                                    maxLines: 5,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                numeric: false,
-                                label: Container(
-                                  width: 80,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'Nama Vaksin',
-                                    maxLines: 5,
-                                    overflow: TextOverflow.visible,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                            rows: List.generate(dataAnak['posyandu'].length, (index) {
-                              final posyanduData = dataAnak['posyandu'][index];
-                              return DataRow(
-                                cells: [
-                                  DataCell(
-                                    SizedBox(
-                                      width: 65,
-                                      height: 80,
-                                      child: Text(
-                                        posyanduData['tanggal_posyandu'],
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    SizedBox(
-                                      width: 50,
-                                      height: 80,
-                                      child: Text(
-                                        '${posyanduData['tb_anak']} cm',
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    SizedBox(
-                                      width: 50,
-                                      height: 80,
-                                      child: Text(
-                                        '${posyanduData['bb_anak']} kg',
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    SizedBox(
-                                      width: 52,
-                                      height: 80,
-                                      child: Text(
-                                        '${posyanduData['umur_anak']} bulan',
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    SizedBox(
-                                      width: 80,
-                                      height: 80,
-                                      child: Text(
-                                        posyanduData['nama_vaksin'].join(', '),
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                            ),
+                            Divider(color: Colors.white.withOpacity(0.8)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buildDetailItem('Tinggi Badan', '${posyanduData['tb_anak']} cm'),
+                                buildDetailItem('Berat Badan', '${posyanduData['bb_anak']} kg'),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buildDetailItem('Umur Anak', '${posyanduData['umur_anak']} bulan'),
+                                buildDetailItem('Nama Vaksin', posyanduData['nama_vaksin'].join(', ')),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildDetailItem(String title, String value) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+          ),
+        ],
       ),
     );
   }

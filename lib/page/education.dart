@@ -34,9 +34,9 @@ class _EducationState extends State<Education> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF6F6F6),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF6F6F6),
         title: const Text(
           'Edukasi',
           style: TextStyle(
@@ -64,7 +64,7 @@ class _EducationState extends State<Education> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Expanded(
             child: FutureBuilder(
               future: artikelController.fetchArtikelData(context),

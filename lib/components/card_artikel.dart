@@ -19,12 +19,6 @@ class CardArtikel extends StatelessWidget {
     required this.index,
   });
 
-  static const List<Color> tagColors = [
-    Color(0xFFBCE7F0),
-    Color(0xFFCFE9BC),
-    Color(0xFFF9E284),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Uint8List?>(
@@ -81,15 +75,15 @@ class CardArtikel extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         decoration: BoxDecoration(
-          color: tagColors[index % tagColors.length],
+          color: const Color(0xFF006BFA),
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: Text(
           text,
           style: const TextStyle(
             fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.black
+            fontWeight: FontWeight.w600,
+            color: Colors.white
           ),
         ),
       ),
