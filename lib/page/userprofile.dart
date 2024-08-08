@@ -174,16 +174,40 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: dataAnak.length,
-                itemBuilder: (context, index) {
-                  return _buildChildCard(dataAnak[index]);
-                },
-              ),
-            ),
+            dataAnak.isEmpty
+                ? SkeletonLoader(
+                    builder: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 3, // Number of skeletons to show
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 5,
+                          ),
+                          width: 200,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        );
+                      },
+                    ),
+                    items: 1,
+                    period: const Duration(seconds: 2),
+                    highlightColor: Colors.grey[100]!,
+                    direction: SkeletonDirection.ltr,
+                  )
+                : SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: dataAnak.length,
+                      itemBuilder: (context, index) {
+                        return _buildChildCard(dataAnak[index]);
+                      },
+                    ),
+                  ),
             const SizedBox(height: 20),
             _buildEditButton(),
             const SizedBox(height: 20),
@@ -254,10 +278,7 @@ class _ProfileState extends State<Profile> {
           const SizedBox(height: 2),
           Text(
             dataAnak['jenis_kelamin_anak'].toString(),
-            style: const TextStyle(
-              fontSize: 18, 
-              color: Colors.white
-            ),
+            style: const TextStyle(fontSize: 18, color: Colors.white),
             textAlign: TextAlign.start,
           ),
         ],
@@ -299,22 +320,28 @@ class _ProfileState extends State<Profile> {
                       color: const Color(0xFF006BFA),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child:
-                        const Icon(Icons.edit, color: Colors.white, size: 30),
+                    child: const Icon(
+                      Icons.edit,
+                      size: 28,
+                      color: Colors.white,
+                    ),
                   ),
-                  const SizedBox(width: 15),
+                  const SizedBox(width: 10),
                   const Text(
                     'Edit Profile',
                     style: TextStyle(
-                      color: Color(0xFF006BFA),
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      color: Color(0xFF006BFA),
                     ),
                   ),
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios,
-                  color: Color(0xFF006BFA), size: 25),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 20,
+                color: Color(0xFF006BFA),
+              ),
             ],
           ),
         ),

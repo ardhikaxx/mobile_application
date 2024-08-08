@@ -71,57 +71,70 @@ class DetailImunisasi extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: dataAnak['posyandu'].map<Widget>((posyanduData) {
-                    return Card(
-                      color: const Color(0xFF006BFA),
-                      elevation: 3,
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      shadowColor: Colors.blueGrey.shade200,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Text(
-                                'Tanggal Posyandu: ${posyanduData['tanggal_posyandu']}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+              child: dataAnak['posyandu'] != null && dataAnak['posyandu'].isNotEmpty
+                  ? ListView.builder(
+                      itemCount: dataAnak['posyandu'].length,
+                      itemBuilder: (context, index) {
+                        final posyanduData = dataAnak['posyandu'][index];
+                        return Card(
+                          color: const Color(0xFF006BFA),
+                          elevation: 3,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          shadowColor: Colors.blueGrey.shade200,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Tanggal Posyandu: ${posyanduData['tanggal_posyandu'] ?? '-'}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Divider(color: Colors.white.withOpacity(0.8)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                buildDetailItem('Tinggi Badan', '${posyanduData['tb_anak']} cm'),
-                                buildDetailItem('Berat Badan', '${posyanduData['bb_anak']} kg'),
+                                Divider(color: Colors.white.withOpacity(0.8)),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildDetailItem('Tinggi Badan', '${posyanduData['tb_anak'] ?? '-'} cm'),
+                                    buildDetailItem('Berat Badan', '${posyanduData['bb_anak'] ?? '-'} kg'),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildDetailItem('Umur Anak', '${posyanduData['umur_anak'] ?? '-'} bulan'),
+                                    buildDetailItem(
+                                      'Nama Vaksin',
+                                      posyanduData['nama_vaksin'] != null
+                                          ? (posyanduData['nama_vaksin'] as List).join(', ')
+                                          : '-',
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                            const SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                buildDetailItem('Umur Anak', '${posyanduData['umur_anak']} bulan'),
-                                buildDetailItem('Nama Vaksin', posyanduData['nama_vaksin'].join(', ')),
-                              ],
-                            ),
-                          ],
+                          ),
+                        );
+                      },
+                    )
+                  : const Center(
+                      child: Text(
+                        'Tidak ada data posyandu dan imunisasi',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                    );
-                  }).toList(),
-                ),
-              ),
+                    ),
             ),
           ],
         ),
