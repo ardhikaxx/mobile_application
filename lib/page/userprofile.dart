@@ -8,6 +8,7 @@ import 'package:posyandu_app/model/user.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:posyandu_app/controller/imunisasi_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart'; // Tambahkan ini
 
 class Profile extends StatefulWidget {
   final UserData userData;
@@ -33,7 +34,6 @@ class _ProfileState extends State<Profile> {
 
     while (!dataFetched) {
       try {
-        // ignore: use_build_context_synchronously
         await ImunisasiController.fetchDataImunisasi(context);
         setState(() {
           dataAnak = ImunisasiController.imunisasiData;
@@ -173,30 +173,24 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             dataAnak.isEmpty
-                ? SkeletonLoader(
-                    builder: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 3, // Number of skeletons to show
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 5,
-                          ),
-                          width: 200,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        );
-                      },
-                    ),
-                    items: 1,
-                    period: const Duration(seconds: 2),
-                    highlightColor: Colors.grey[100]!,
-                    direction: SkeletonDirection.ltr,
+                ? Column(
+                    children: [
+                      Lottie.asset(
+                        'assets/lottie/no_data.json',
+                        width: 200,
+                        height: 200,
+                      ),
+                      const Text(
+                        'Tidak ada data anak',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
                   )
                 : SizedBox(
                     height: 200,
@@ -330,17 +324,16 @@ class _ProfileState extends State<Profile> {
                   const Text(
                     'Edit Profile',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF006BFA),
                     ),
                   ),
                 ],
               ),
               const Icon(
                 Icons.arrow_forward_ios,
-                size: 20,
-                color: Color(0xFF006BFA),
+                color: Colors.grey,
               ),
             ],
           ),
@@ -377,22 +370,27 @@ class _ProfileState extends State<Profile> {
                       color: const Color(0xFF006BFA),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child:
-                        const Icon(Icons.logout, color: Colors.white, size: 30),
+                    child: const Icon(
+                      Icons.logout,
+                      size: 28,
+                      color: Colors.white,
+                    ),
                   ),
-                  const SizedBox(width: 15),
+                  const SizedBox(width: 10),
                   const Text(
                     'Logout',
                     style: TextStyle(
-                      color: Color(0xFF006BFA),
-                      fontWeight: FontWeight.bold,
                       fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios,
-                  color: Color(0xFF006BFA), size: 25),
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey,
+              ),
             ],
           ),
         ),
@@ -405,8 +403,8 @@ class _ProfileState extends State<Profile> {
       context: context,
       dialogType: DialogType.warning,
       animType: AnimType.topSlide,
-      title: 'Confirmation',
-      desc: 'Are you sure you want to logout?',
+      title: 'Konfirmasi Logout',
+      desc: 'Apakah Anda yakin ingin keluar?',
       btnCancelOnPress: () {},
       btnOkOnPress: () async {
         Get.off(() => LoginPage());

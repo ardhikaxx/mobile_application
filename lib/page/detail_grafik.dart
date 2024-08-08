@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -39,58 +40,63 @@ class DetailGrafik extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: posyanduData.isEmpty
-            ? const Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.7),
+                    spreadRadius: -2,
+                    blurRadius: 20,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              width: double.infinity,
+              height: 65,
+              child: const Center(
                 child: Text(
-                  'Tidak ada data grafik pada anak',
+                  'Grafik Pertumbuhan dan Perkembangan Anak',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54,
+                    color: Colors.black,
                   ),
                   textAlign: TextAlign.center,
                 ),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 3,
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                          ),
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.7),
-                            spreadRadius: -2,
-                            blurRadius: 20,
-                            offset: const Offset(0, -2),
-                          ),
-                        ],
-                      ),
-                      width: double.infinity,
-                      height: 65,
-                      child: const Center(
-                        child: Text(
-                          'Grafik Pertumbuhan dan Perkembangan Anak',
+              ),
+            ),
+            const SizedBox(height: 20),
+            posyanduData.isEmpty
+                ? Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('assets/lottie/no_data.json', width: 400),
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Tidak ada data grafik pada anak',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.black54,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
+                  )
+                : Expanded(
                     child: ListView(
                       children: [
                         const Text(
@@ -102,12 +108,13 @@ class DetailGrafik extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         _buildBarChartCard(
-                            'Berat Badan (kg)',
-                            beratBadanData,
-                            const Color(0xFFBCE7F0),
-                            const Color(0xFF006BFA),
-                            FontAwesomeIcons.weightScale,
-                            Colors.black),
+                          'Berat Badan (kg)',
+                          beratBadanData,
+                          const Color(0xFFBCE7F0),
+                          const Color(0xFF006BFA),
+                          FontAwesomeIcons.weightScale,
+                          Colors.black,
+                        ),
                         const SizedBox(height: 20),
                         const Text(
                           'Grafik Perkembangan Tinggi Badan Anak',
@@ -118,18 +125,19 @@ class DetailGrafik extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         _buildBarChartCard(
-                            'Tinggi Badan (cm)',
-                            tinggiBadanData,
-                            const Color(0xFFBCE7F0),
-                            const Color(0xFF006BFA),
-                            FontAwesomeIcons.ruler,
-                            Colors.black),
+                          'Tinggi Badan (cm)',
+                          tinggiBadanData,
+                          const Color(0xFFBCE7F0),
+                          const Color(0xFF006BFA),
+                          FontAwesomeIcons.ruler,
+                          Colors.black,
+                        ),
                         const SizedBox(height: 20),
                       ],
                     ),
                   ),
-                ],
-              ),
+          ],
+        ),
       ),
     );
   }
@@ -191,10 +199,10 @@ class DetailGrafik extends StatelessWidget {
                 const SizedBox(width: 10),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
-                    color: Colors.black,
+                    color: iconColor,
                   ),
                 ),
               ],
@@ -270,8 +278,8 @@ class DetailGrafik extends StatelessWidget {
       'Des'
     ];
     try {
-      final monthNumber = int.parse(
-          DateFormat('MM').format(DateFormat('yyyy-MM-dd').parse(date)));
+      final parsedDate = DateFormat('yyyy-MM-dd').parse(date);
+      final monthNumber = parsedDate.month;
       return monthNames[monthNumber - 1];
     } catch (e) {
       return 'Unknown';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class DetailImunisasi extends StatelessWidget {
   final Map<String, dynamic> dataAnak;
@@ -124,15 +125,22 @@ class DetailImunisasi extends StatelessWidget {
                         );
                       },
                     )
-                  : const Center(
-                      child: Text(
-                        'Tidak ada data posyandu dan imunisasi',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/lottie/no_data.json', width: 400),
+                          const SizedBox(height: 20),
+                          const Text(
+                            'Tidak ada data posyandu dan imunisasi',
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
             ),

@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:posyandu_app/model/user.dart';
 import 'package:posyandu_app/controller/jadwal_controller.dart';
 import 'package:posyandu_app/controller/imunisasi_controller.dart';
@@ -402,221 +403,178 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     const SizedBox(height: 15),
                     Expanded(
-  child: dataAnak.isNotEmpty
-      ? Swiper(
-          itemCount: dataAnak.length,
-          itemBuilder: (BuildContext context, int index) {
-            var anak = dataAnak[index];
-            var posyanduData = anak['posyandu'] ?? [];
-            
-            // Menentukan warna latar belakang dan ikon berdasarkan jenis kelamin
-            Color backgroundColor;
-            Color iconColor;
-            if (anak['jenis_kelamin_anak'] == 'Laki-laki') {
-              backgroundColor = Colors.blue.shade300;
-              iconColor = Colors.blue.shade400;
-            } else {
-              backgroundColor = Colors.pink.shade200;
-              iconColor = Colors.pink.shade300;
-            }
+                      child: dataAnak.isNotEmpty
+                          ? Swiper(
+                              itemCount: dataAnak.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                var anak = dataAnak[index];
+                                var posyanduData = anak['posyandu'] ?? [];
 
-            double previousHeight = posyanduData.length > 1
-                ? parseStringToDouble(
-                    posyanduData[posyanduData.length - 2]['tb_anak'] ?? '0')
-                : (posyanduData.isNotEmpty
-                    ? parseStringToDouble(
-                        posyanduData.last['tb_anak'] ?? '0')
-                    : 0);
-            double currentHeight = posyanduData.isNotEmpty
-                ? parseStringToDouble(posyanduData.last['tb_anak'] ?? '0')
-                : 0;
+                                // Menentukan warna latar belakang dan ikon berdasarkan jenis kelamin
+                                Color backgroundColor;
+                                Color iconColor;
+                                if (anak['jenis_kelamin_anak'] == 'Laki-laki') {
+                                  backgroundColor = Colors.blue.shade300;
+                                  iconColor = Colors.blue.shade400;
+                                } else {
+                                  backgroundColor = Colors.pink.shade200;
+                                  iconColor = Colors.pink.shade300;
+                                }
 
-            double previousWeight = posyanduData.length > 1
-                ? parseStringToDouble(
-                    posyanduData[posyanduData.length - 2]['bb_anak'] ?? '0')
-                : (posyanduData.isNotEmpty
-                    ? parseStringToDouble(
-                        posyanduData.last['bb_anak'] ?? '0')
-                    : 0);
-            double currentWeight = posyanduData.isNotEmpty
-                ? parseStringToDouble(posyanduData.last['bb_anak'] ?? '0')
-                : 0;
+                                double previousHeight = posyanduData.length > 1
+                                    ? parseStringToDouble(
+                                        posyanduData[posyanduData.length - 2]
+                                                ['tb_anak'] ??
+                                            '0')
+                                    : (posyanduData.isNotEmpty
+                                        ? parseStringToDouble(
+                                            posyanduData.last['tb_anak'] ?? '0')
+                                        : 0);
+                                double currentHeight = posyanduData.isNotEmpty
+                                    ? parseStringToDouble(
+                                        posyanduData.last['tb_anak'] ?? '0')
+                                    : 0;
 
-            return Card(
-              color: backgroundColor,
-              key: ValueKey(anak['nik_anak']),
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              child: Container(
-                width: double.infinity,
-                height: 350,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          padding: const EdgeInsets.all(10),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              FontAwesomeIcons.heartPulse,
-                              color: iconColor,
-                              size: 25,
+                                double previousWeight = posyanduData.length > 1
+                                    ? parseStringToDouble(
+                                        posyanduData[posyanduData.length - 2]
+                                                ['bb_anak'] ??
+                                            '0')
+                                    : (posyanduData.isNotEmpty
+                                        ? parseStringToDouble(
+                                            posyanduData.last['bb_anak'] ?? '0')
+                                        : 0);
+                                double currentWeight = posyanduData.isNotEmpty
+                                    ? parseStringToDouble(
+                                        posyanduData.last['bb_anak'] ?? '0')
+                                    : 0;
+
+                                return Card(
+                                  color: backgroundColor,
+                                  key: ValueKey(anak['nik_anak']),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 350,
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 50,
+                                              height: 50,
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Center(
+                                                child: Icon(
+                                                  FontAwesomeIcons.heartPulse,
+                                                  color: iconColor,
+                                                  size: 25,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              anak['nama_anak'],
+                                              style: const TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 6),
+                                        Text(
+                                          'Anak ke: ${anak['anak_ke']}',
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        if (posyanduData.isNotEmpty) ...[
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Tinggi Badan: $currentHeight cm',
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 15),
+                                              _buildArrowIconWithBackground(
+                                                previousHeight,
+                                                currentHeight,
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Berat Badan: $currentWeight kg',
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 15),
+                                              _buildArrowIconWithBackground(
+                                                previousWeight,
+                                                currentWeight,
+                                              ),
+                                            ],
+                                          ),
+                                        ] else
+                                          const Text(
+                                            'Data posyandu tidak tersedia',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemWidth:
+                                  MediaQuery.of(context).size.width * 0.9,
+                              itemHeight: 350,
+                              layout: SwiperLayout.STACK,
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.asset('assets/lottie/no_data.json', width: 200 ),
+                                const Text(
+                                  'Tidak ada data anak.',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          anak['nama_anak'],
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Anak ke: ${anak['anak_ke']}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    if (posyanduData.isNotEmpty) ...[
-                      Row(
-                        children: [
-                          Text(
-                            'Tinggi Badan: $currentHeight cm',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(width: 15),
-                          _buildArrowIconWithBackground(
-                            previousHeight,
-                            currentHeight,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Text(
-                            'Berat Badan: $currentWeight kg',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(width: 15),
-                          _buildArrowIconWithBackground(
-                            previousWeight,
-                            currentWeight,
-                          ),
-                        ],
-                      ),
-                    ] else
-                      const Text(
-                        'Data posyandu tidak tersedia',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            );
-          },
-          itemWidth: MediaQuery.of(context).size.width * 0.9,
-          itemHeight: 350,
-          layout: SwiperLayout.STACK,
-        )
-      : SkeletonLoader(
-          builder: Card(
-            color: Colors.grey[300], 
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            FontAwesomeIcons.heartPulse,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Container(
-                        width: 100,
-                        height: 20,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  Container(
-                    width: 150,
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          items: 1,
-          period: const Duration(seconds: 2),
-          highlightColor: Colors.grey[200]!,
-          direction: SkeletonDirection.ltr,
-        ),
-)
+                    )
                   ],
                 ),
               ),

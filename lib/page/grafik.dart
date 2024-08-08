@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:posyandu_app/components/card_grafik.dart';
 import 'package:posyandu_app/controller/grafik_controller.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
+import 'package:lottie/lottie.dart'; // Import Lottie package
 
 class Grafik extends StatefulWidget {
   final dynamic userData;
@@ -95,15 +96,22 @@ class _GrafikState extends State<Grafik> {
                         ),
                       )
                     : GrafikController.posyanduData.isEmpty
-                        ? const Center(
-                            child: Text(
-                              'Tidak ada data anak',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                              textAlign: TextAlign.center,
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.asset('assets/lottie/no_data.json', width: 400),
+                                const SizedBox(height: 20),
+                                const Text(
+                                  'Tidak ada data anak',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           )
                         : ListView.builder(
